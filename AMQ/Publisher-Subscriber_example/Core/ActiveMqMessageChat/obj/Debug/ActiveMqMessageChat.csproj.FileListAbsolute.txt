@@ -10,3 +10,6 @@ C:\Users\yurijs\Dropbox\Learning\C_sharp\CSharp_Chat_Project\Publisher-Subscribe
 C:\Users\yurijs\Dropbox\Learning\C_sharp\CSharp_Chat_Project\Publisher-Subscriber_example\Core\ActiveMqMessageChat\obj\Debug\ActiveMqMessageChat.exe
 C:\Users\yurijs\Dropbox\Learning\C_sharp\CSharp_Chat_Project\Publisher-Subscriber_example\Core\ActiveMqMessageChat\obj\Debug\ActiveMqMessageChat.pdb
 C:\Users\yurijs\Dropbox\Learning\C_sharp\CSharp_Chat_Project\Publisher-Subscriber_example\Core\ActiveMqMessageChat\obj\Debug\ActiveMqMessageChat.LaunchForm.resources
+C:\Users\yurijs\Dropbox\Learning\C_sharp\CSharp_Chat_Project\AMQ\Publisher-Subscriber_example\Core\ActiveMqMessageChat\bin\Debug\ActiveMqMessageChat.exe.config
+C:\Users\yurijs\Dropbox\Learning\C_sharp\CSharp_Chat_Project\AMQ\Publisher-Subscriber_example\Core\ActiveMqMessageChat\obj\Debug\ActiveMqMessageChat.exe
+C:\Users\yurijs\Dropbox\Learning\C_sharp\CSharp_Chat_Project\AMQ\Publisher-Subscriber_example\Core\ActiveMqMessageChat\obj\Debug\ActiveMqMessageChat.pdb

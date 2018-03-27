@@ -22,5 +22,12 @@ namespace BackEndMocker
         /// <returns>return ID from SQL</returns>
         int CreateNewTopicID(string userOne, string userTwo);
 
+        /// <summary>
+        /// Check if user authenticated according to prvided details
+        /// </summary>
+        /// <param name="userName">login name of user</param>
+        /// <param name="userPAssword">password of user</param>
+        /// <returns></returns>
+        bool IsUserAuthenticated(string userName, string userPAssword);     
     }
 }
