@@ -1,0 +1,9 @@
+C:\Users\yurijs\Dropbox\Learning\C_sharp\CSharp_Chat_Project\AMQTest_01\BusinessObject\BusinessObject\bin\Debug\BusinessObject.dll
+C:\Users\yurijs\Dropbox\Learning\C_sharp\CSharp_Chat_Project\AMQTest_01\BusinessObject\BusinessObject\bin\Debug\BusinessObject.pdb
+C:\Users\yurijs\Dropbox\Learning\C_sharp\CSharp_Chat_Project\AMQTest_01\BusinessObject\BusinessObject\obj\Debug\BusinessObject.dll
+C:\Users\yurijs\Dropbox\Learning\C_sharp\CSharp_Chat_Project\AMQTest_01\BusinessObject\BusinessObject\obj\Debug\BusinessObject.pdb
+D:\Dropbox\Learning\C_sharp\CSharp_Chat_Project\AMQTest_01\BusinessObject\BusinessObject\bin\Debug\BusinessObject.dll
+D:\Dropbox\Learning\C_sharp\CSharp_Chat_Project\AMQTest_01\BusinessObject\BusinessObject\bin\Debug\BusinessObject.pdb
+D:\Dropbox\Learning\C_sharp\CSharp_Chat_Project\AMQTest_01\BusinessObject\BusinessObject\obj\Debug\BusinessObject.csprojResolveAssemblyReference.cache
+D:\Dropbox\Learning\C_sharp\CSharp_Chat_Project\AMQTest_01\BusinessObject\BusinessObject\obj\Debug\BusinessObject.dll
+D:\Dropbox\Learning\C_sharp\CSharp_Chat_Project\AMQTest_01\BusinessObject\BusinessObject\obj\Debug\BusinessObject.pdb

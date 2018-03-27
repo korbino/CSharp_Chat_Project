@@ -1,0 +1,13 @@
+C:\Users\yurijs\Dropbox\Learning\C_sharp\CSharp_Chat_Project\AMQTest_01\BusinessObject\ExampleQueue\bin\Debug\ExampleQueue.exe.config
+C:\Users\yurijs\Dropbox\Learning\C_sharp\CSharp_Chat_Project\AMQTest_01\BusinessObject\ExampleQueue\bin\Debug\ExampleQueue.exe
+C:\Users\yurijs\Dropbox\Learning\C_sharp\CSharp_Chat_Project\AMQTest_01\BusinessObject\ExampleQueue\bin\Debug\ExampleQueue.pdb
+C:\Users\yurijs\Dropbox\Learning\C_sharp\CSharp_Chat_Project\AMQTest_01\BusinessObject\ExampleQueue\bin\Debug\Apache.NMS.ActiveMQ.dll
+C:\Users\yurijs\Dropbox\Learning\C_sharp\CSharp_Chat_Project\AMQTest_01\BusinessObject\ExampleQueue\bin\Debug\Apache.NMS.dll
+C:\Users\yurijs\Dropbox\Learning\C_sharp\CSharp_Chat_Project\AMQTest_01\BusinessObject\ExampleQueue\bin\Debug\BusinessObject.dll
+C:\Users\yurijs\Dropbox\Learning\C_sharp\CSharp_Chat_Project\AMQTest_01\BusinessObject\ExampleQueue\bin\Debug\BusinessObject.pdb
+C:\Users\yurijs\Dropbox\Learning\C_sharp\CSharp_Chat_Project\AMQTest_01\BusinessObject\ExampleQueue\obj\Debug\ExampleQueue.csprojResolveAssemblyReference.cache
+C:\Users\yurijs\Dropbox\Learning\C_sharp\CSharp_Chat_Project\AMQTest_01\BusinessObject\ExampleQueue\obj\Debug\ExampleQueue.Properties.Resources.resources
+C:\Users\yurijs\Dropbox\Learning\C_sharp\CSharp_Chat_Project\AMQTest_01\BusinessObject\ExampleQueue\obj\Debug\ExampleQueue.csproj.GenerateResource.Cache
+C:\Users\yurijs\Dropbox\Learning\C_sharp\CSharp_Chat_Project\AMQTest_01\BusinessObject\ExampleQueue\obj\Debug\ExampleQueue.exe
+C:\Users\yurijs\Dropbox\Learning\C_sharp\CSharp_Chat_Project\AMQTest_01\BusinessObject\ExampleQueue\obj\Debug\ExampleQueue.pdb
+C:\Users\yurijs\Dropbox\Learning\C_sharp\CSharp_Chat_Project\AMQTest_01\BusinessObject\ExampleQueue\obj\Debug\ExampleQueue.Sender.resources
