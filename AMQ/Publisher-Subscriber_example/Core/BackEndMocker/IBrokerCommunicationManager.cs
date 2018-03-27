@@ -28,6 +28,8 @@ namespace BackEndMocker
         /// <param name="userName">login name of user</param>
         /// <param name="userPAssword">password of user</param>
         /// <returns></returns>
-        bool IsUserAuthenticated(string userName, string userPAssword);     
+        bool IsUserAuthenticated(string userName, string userPAssword);    
+        
+         //test
     }
 }
