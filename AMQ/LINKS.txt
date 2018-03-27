@@ -1,0 +1,32 @@
+Useful Links:
+
+
+ActiveMQ in .NET (Sample Chat Application):
+https://code.msdn.microsoft.com/windowsapps/ActiveMQ-in-NET-Sample-9406441a#content
+
+Overview for NMS API:
+http://activemq.apache.org/nms/apachenms.html
+
+Getting Starting with NMS (.NET client for AMQ):
+http://activemq.apache.org/nms/using-nms.html
+
+Example gives a brief demonstration for connecting, sending and receiving a message using NMS:
+http://activemq.apache.org/nms/examples.html
+
+Indusian Hello World with AMQ and .NET C#:
+https://www.youtube.com/watch?v=u5Z6kO9ZZCI
+
+Install AMQ as service in windows machine:
+https://www.youtube.com/watch?v=oaegBVoVvlQ
+
+
+Brokers comparison
+https://bravenewgeek.com/dissecting-message-queues/ 
+
+
+AMQ and ASP net web site:
+https://stackoverflow.com/questions/40464865/example-of-using-activemq-on-asp-net-site
+
+
+AMQ  - publisher-subscriber pattern with TOPIC:
+https://remark.wordpress.com/articles/publish-subscribe-with-activemq-and-nms/
