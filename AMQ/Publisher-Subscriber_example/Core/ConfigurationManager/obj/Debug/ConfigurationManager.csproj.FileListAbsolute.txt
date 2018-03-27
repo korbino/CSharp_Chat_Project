@@ -1,0 +1,4 @@
+C:\Users\yurijs\Dropbox\Learning\C_sharp\CSharp_Chat_Project\AMQ\Publisher-Subscriber_example\Core\ConfigurationManager\bin\Debug\ConfigurationManager.dll
+C:\Users\yurijs\Dropbox\Learning\C_sharp\CSharp_Chat_Project\AMQ\Publisher-Subscriber_example\Core\ConfigurationManager\bin\Debug\ConfigurationManager.pdb
+C:\Users\yurijs\Dropbox\Learning\C_sharp\CSharp_Chat_Project\AMQ\Publisher-Subscriber_example\Core\ConfigurationManager\obj\Debug\ConfigurationManager.dll
+C:\Users\yurijs\Dropbox\Learning\C_sharp\CSharp_Chat_Project\AMQ\Publisher-Subscriber_example\Core\ConfigurationManager\obj\Debug\ConfigurationManager.pdb

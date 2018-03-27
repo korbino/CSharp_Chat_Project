@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Core;
 using Apache.NMS.ActiveMQ;
+using BackEndMocker;
 
 namespace ActiveMqMessageChat
 {
@@ -16,6 +17,7 @@ namespace ActiveMqMessageChat
     {
         const string TOPIC_NAME = "SampleSubscriptionTopic";
         const string BROKER = "tcp://localhost:61616";
+                 
 
         private readonly TopicConnectionFactory connectionFactory = new TopicConnectionFactory(new ConnectionFactory(BROKER));
         private TopicConnection connection;

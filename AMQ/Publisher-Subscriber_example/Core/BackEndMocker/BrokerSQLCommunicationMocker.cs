@@ -6,12 +6,12 @@ using System.Threading.Tasks;
 
 namespace BackEndMocker
 {
-    public class BrokerCoomunicationManager : IBrokerCommunicationManager
-    {   
+    class BrokerSQLCommunicationMocker : IBrokerSQLCommunication
+    {
         public int CreateNewTopicID(string userOne, string userTwo)
         {
             Random rand = new Random();
-            return rand.Next(1, 1000);            
+            return rand.Next(1, 1000);
         }
 
         public List<string> GetUserListFromDB()
@@ -21,11 +21,6 @@ namespace BackEndMocker
             usersList.Add("user_2");
             usersList.Add("user_3");
             return usersList;
-        }
-
-        public bool IsUserAuthenticated(string userName, string userPAssword)
-        {
-            return true;
         }
     }
 }

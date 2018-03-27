@@ -97,6 +97,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\BackEndMocker\BackEndMocker.csproj">
+      <Project>{388d5b9f-7965-4f07-84a8-adbdcd2e1946}</Project>
+      <Name>BackEndMocker</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Core\Core.csproj">
       <Project>{e81a987c-e0e1-47ee-bbbc-722a4949c0bc}</Project>
       <Name>Core</Name>
