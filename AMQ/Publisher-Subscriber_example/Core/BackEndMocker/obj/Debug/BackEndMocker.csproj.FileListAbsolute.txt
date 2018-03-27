@@ -1,0 +1,5 @@
+C:\Users\yurijs\Dropbox\Learning\C_sharp\CSharp_Chat_Project\AMQ\Publisher-Subscriber_example\Core\BackEndMocker\bin\Debug\BackEndMocker.dll
+C:\Users\yurijs\Dropbox\Learning\C_sharp\CSharp_Chat_Project\AMQ\Publisher-Subscriber_example\Core\BackEndMocker\bin\Debug\BackEndMocker.pdb
+C:\Users\yurijs\Dropbox\Learning\C_sharp\CSharp_Chat_Project\AMQ\Publisher-Subscriber_example\Core\BackEndMocker\obj\Debug\BackEndMocker.csprojResolveAssemblyReference.cache
+C:\Users\yurijs\Dropbox\Learning\C_sharp\CSharp_Chat_Project\AMQ\Publisher-Subscriber_example\Core\BackEndMocker\obj\Debug\BackEndMocker.dll
+C:\Users\yurijs\Dropbox\Learning\C_sharp\CSharp_Chat_Project\AMQ\Publisher-Subscriber_example\Core\BackEndMocker\obj\Debug\BackEndMocker.pdb
