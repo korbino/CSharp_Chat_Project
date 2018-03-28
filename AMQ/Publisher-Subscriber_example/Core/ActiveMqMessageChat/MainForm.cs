@@ -15,35 +15,26 @@ namespace ActiveMqMessageChat
 {
     public partial class MainForm : Form
     {
-        const string TOPIC_NAME = "SampleSubscriptionTopic";
-        const string BROKER = "tcp://localhost:61616";
-                 
-
-        private readonly TopicConnectionFactory connectionFactory = new TopicConnectionFactory(new ConnectionFactory(BROKER));
-        private TopicConnection connection;
-        private SimpleTopicPublisher publisher;
-        private SimpleTopicSubscriber subscriber;
-        private string clientId;
-        private string consumerId;
-        private readonly StringBuilder builder = new StringBuilder();
         private delegate void SetTextCallback(string text);
+        private BrokerClientManager broCliMan = new BrokerClientManager();
+        private string selfName;
 
         public MainForm()
-        {
+        {            
             InitializeComponent();
         }
 
         private void subscriber_OnMessageReceived(string message)
         {
-            this.builder.AppendLine(message);
-            SetText(this.builder.ToString());
+            broCliMan.builder.AppendLine(message);
+            SetText(broCliMan.builder.ToString());
         }
 
         private void SetText(string text)
         {
             // InvokeRequired required compares the thread ID of the
             // calling thread to the thread ID of the creating thread.
-            // If these threads are different, it returns true.
+            // If these threads are different, it returns true.            
             if (this.historyTextBox.InvokeRequired)
             {
                 SetTextCallback d = new SetTextCallback(SetText);
@@ -55,14 +46,13 @@ namespace ActiveMqMessageChat
             }
         }
 
-
         private void MainForm_FormClosed(object sender, FormClosedEventArgs e)
         {
             try
             {
-                this.publisher.Dispose();
-                this.subscriber.Dispose();
-                this.connection.Dispose();
+                broCliMan.publisher.Dispose();
+                broCliMan.subscriber.Dispose();
+                broCliMan.connection.Dispose();
             }
             catch { }
         }      
@@ -71,13 +61,18 @@ namespace ActiveMqMessageChat
         {
             try
             {
-                this.clientId = this.clientIdTextBox.Text;
-                this.consumerId = this.clientId;
+                //Get client ID
+                broCliMan.clientId = this.clientIdTextBox.Text;
+                broCliMan.consumerId = broCliMan.clientId;
+                selfName = broCliMan.clientId;               
 
-                this.connection = this.connectionFactory.CreateConnection(this.clientId, TOPIC_NAME);
-                this.publisher = this.connection.CreateTopicPublisher();
-                this.subscriber = this.connection.CreateSimpleTopicSubscriber(this.consumerId);
-                this.subscriber.OnMessageReceived += new MessageRecieverDelegate(subscriber_OnMessageReceived);
+                //init self pub-subscriber section:
+                broCliMan.connection = broCliMan.connectionFactory.CreateConnection(broCliMan.clientId, broCliMan.TOPIC_NAME);                
+                broCliMan.publisher = broCliMan.connection.CreateTopicPublisher();               
+                broCliMan.subscriber = broCliMan.connection.CreateSimpleTopicSubscriber(broCliMan.consumerId);
+
+                broCliMan.subscriber.OnMessageReceived += new MessageRecieverDelegate(subscriber_OnMessageReceived);
+
                 this.clientIdLabel.Enabled = false;
                 this.clientIdTextBox.Enabled = false;
                 this.connectButton.Enabled = false;
@@ -95,7 +90,7 @@ namespace ActiveMqMessageChat
 
         private void submitButton_Click_1(object sender, EventArgs e)
         {
-            this.publisher.SendMessage(this.messageTextBox.Text);
+            broCliMan.publisher.SendMessage(this.messageTextBox.Text);
         }
     }
 }

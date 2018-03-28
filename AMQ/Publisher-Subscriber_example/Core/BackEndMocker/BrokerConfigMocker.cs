@@ -6,13 +6,13 @@ using System.Threading.Tasks;
 
 namespace BackEndMocker
 {
-    class BrokerConfigMocker : IBrokerConfig
+    public class BrokerConfigMocker : IBrokerConfig
     {
         public string BrokerLocation
         {
             get
             {
-                throw new NotImplementedException();
+                return "localhost";
             }
         }
 
@@ -20,11 +20,8 @@ namespace BackEndMocker
         {
             get
             {
-                throw new NotImplementedException();
+                return 61616;
             }
         }
-
-        private string brokerLocation = "localhost";
-        private int brokerPortConnection = 61616;
     }
 }

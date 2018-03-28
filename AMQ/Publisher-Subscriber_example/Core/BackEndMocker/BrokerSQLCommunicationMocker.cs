@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace BackEndMocker
 {
-    class BrokerSQLCommunicationMocker : IBrokerSQLCommunication
+   public class BrokerSQLCommunicationMocker : IBrokerSQLCommunication
     {
         public int CreateNewTopicID(string userOne, string userTwo)
         {
