@@ -90,7 +90,7 @@ namespace ActiveMqMessageChat
 
         private void submitButton_Click_1(object sender, EventArgs e)
         {
-            broCliMan.publisher.SendMessage(this.messageTextBox.Text);
+            broCliMan.publisher.SendMessage(this.selfName + "::::   " + this.messageTextBox.Text);
         }
     }
 }

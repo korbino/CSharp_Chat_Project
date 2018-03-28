@@ -11,10 +11,12 @@ namespace ActiveMqMessageChat
 {
     class BrokerClientManager
     {
+        //mockers init:
         BrokerConfigMocker brConfigMocker = new BrokerConfigMocker();
         BrokerAuthenticationMocker brAuthMocker = new BrokerAuthenticationMocker();
         BrokerSQLCommunicationMocker brSQLCommunicationMocker = new BrokerSQLCommunicationMocker();
         
+        //main fields definition
         public TopicConnectionFactory connectionFactory;            
         public TopicConnection connection;
         public SimpleTopicPublisher publisher;
