@@ -14,7 +14,7 @@ namespace BackEndMocker
         string BrokerLocation { get; }
 
         /// <summary>
-        /// Return communication broker's port
+        /// Return communication broker's port//
         /// </summary>
         int BrokerPortConnection { get; }
     }
