@@ -15,17 +15,21 @@ namespace ActiveMqMessageChat
 {
     public partial class MainForm : Form
     {        
-        private BrokerClientManager broCliMan = new BrokerClientManager();        
+        private BrokerClientManager broCliMan = new BrokerClientManager();
+        BindingSource bs = new BindingSource();   //this is for combobox user list from db     
 
         public MainForm()
         {            
             InitializeComponent();
+            //extract users list from DB: 
+            bs.DataSource = broCliMan.brSQLCommunicationMocker.GetUserListFromDB();
+            usersInDBComboBox.DataSource = bs;
         }             
 
         private void connectButton_Click_1(object sender, EventArgs e)
         {
             try
-            {
+            {                               
                 //create connection
                 broCliMan.Connection(this.clientIdTextBox.Text, this);                                                              
 
@@ -36,6 +40,8 @@ namespace ActiveMqMessageChat
                 this.instructionLabel.Enabled = true;
                 this.historyTextBox.Enabled = true;
                 this.submitButton.Enabled = true;
+                this.usersInDBComboBox.Enabled = false;
+                this.passwordTextBox.Enabled = false;            
             }
             catch (Exception ex)
             {
@@ -57,5 +63,11 @@ namespace ActiveMqMessageChat
             }
             catch { }
         }
+
+        private void instructionLabel_Click(object sender, EventArgs e)
+        {
+
+        }
+
     }
 }

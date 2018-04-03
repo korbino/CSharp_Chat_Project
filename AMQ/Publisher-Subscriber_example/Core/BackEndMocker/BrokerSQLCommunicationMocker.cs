@@ -10,8 +10,7 @@ namespace BackEndMocker
     {
         public int CreateNewTopicID(string userOne, string userTwo)
         {
-            Random rand = new Random();
-            return rand.Next(1, 1000);
+            return 300;
         }
 
         public List<string> GetUserListFromDB()

@@ -15,10 +15,10 @@ namespace ActiveMqMessageChat
 
         //mockers init:
         BrokerConfigMocker brConfigMocker = new BrokerConfigMocker();
-        BrokerAuthenticationMocker brAuthMocker = new BrokerAuthenticationMocker();
-        BrokerSQLCommunicationMocker brSQLCommunicationMocker = new BrokerSQLCommunicationMocker();
+        public BrokerAuthenticationMocker brAuthMocker = new BrokerAuthenticationMocker();
+        public BrokerSQLCommunicationMocker brSQLCommunicationMocker = new BrokerSQLCommunicationMocker();
         
-        //public fields definition
+        //public fields definition        
         public TopicConnectionFactory connectionFactory;            
         public TopicConnection connection;
         public SimpleTopicPublisher publisher;
@@ -26,7 +26,7 @@ namespace ActiveMqMessageChat
         public string clientId;
         public string consumerId;
         public readonly StringBuilder builder = new StringBuilder();
-        public string TOPIC_NAME = "TestTopicName";
+        public string TOPIC_NAME = "TestTopicName";        
 
         //private fields:
         private MainForm mainForm;
@@ -41,20 +41,32 @@ namespace ActiveMqMessageChat
         /// <summary>
         /// Creating connection with self pub\subscr in durable mode
         /// </summary>
-        /// <param name="clientId">currently this is user id, which defining in form</param>
+        /// <param name="clientId">currently this is user id, which defining in form</param>        
         public void Connection (string clientId, MainForm mainForm)
-        {
-            //Get client ID
-            this.clientId = clientId;
-            consumerId = this.clientId;
-            this.mainForm = mainForm;
+        {        
+            if (brAuthMocker.IsUserAuthenticated(mainForm.clientIdTextBox.Text, mainForm.passwordTextBox.Text))
+            {
+                this.mainForm = mainForm;//init main form, probably will need to move to constructor if this.
 
-            //init self pub-subscriber section:
-            connection = connectionFactory.CreateConnection(clientId, TOPIC_NAME);
-            publisher = connection.CreateTopicPublisher();
-            subscriber = connection.CreateSimpleTopicSubscriber(consumerId);
+                InitTopicName();//init according to choosed users in form
 
-            subscriber.OnMessageReceived += new MessageRecieverDelegate(subscriber_OnMessageReceived);
+                //Get client ID
+                this.clientId = clientId;
+                consumerId = this.clientId;
+                
+
+                //init self pub-subscriber section:
+                connection = connectionFactory.CreateConnection(clientId, TOPIC_NAME);
+                publisher = connection.CreateTopicPublisher();
+                subscriber = connection.CreateSimpleTopicSubscriber(consumerId);
+
+                subscriber.OnMessageReceived += new MessageRecieverDelegate(subscriber_OnMessageReceived);
+            }  
+            else
+            {
+                throw new Exception("User is not Authenticate!");
+            }
+            
         }
 
         public void SendMessage ()
@@ -63,6 +75,11 @@ namespace ActiveMqMessageChat
         }
 
         #region PRIVATE METHODS:
+        private void InitTopicName ()
+        {            
+            this.TOPIC_NAME = brSQLCommunicationMocker.CreateNewTopicID(mainForm.clientIdTextBox.Text, mainForm.usersInDBComboBox.SelectedText).ToString();
+        }
+
         private void subscriber_OnMessageReceived(string message)
         {
             builder.AppendLine(message);
