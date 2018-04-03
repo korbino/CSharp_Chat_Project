@@ -11,8 +11,6 @@ C:\Users\yurijs\Dropbox\Learning\C_sharp\CSharp_Chat_Project\Publisher-Subscribe
 C:\Users\yurijs\Dropbox\Learning\C_sharp\CSharp_Chat_Project\Publisher-Subscriber_example\Core\ActiveMqMessageChat\obj\Debug\ActiveMqMessageChat.pdb
 C:\Users\yurijs\Dropbox\Learning\C_sharp\CSharp_Chat_Project\Publisher-Subscriber_example\Core\ActiveMqMessageChat\obj\Debug\ActiveMqMessageChat.LaunchForm.resources
 C:\Users\yurijs\Dropbox\Learning\C_sharp\CSharp_Chat_Project\AMQ\Publisher-Subscriber_example\Core\ActiveMqMessageChat\bin\Debug\ActiveMqMessageChat.exe.config
-C:\Users\yurijs\Dropbox\Learning\C_sharp\CSharp_Chat_Project\AMQ\Publisher-Subscriber_example\Core\ActiveMqMessageChat\obj\Debug\ActiveMqMessageChat.exe
-C:\Users\yurijs\Dropbox\Learning\C_sharp\CSharp_Chat_Project\AMQ\Publisher-Subscriber_example\Core\ActiveMqMessageChat\obj\Debug\ActiveMqMessageChat.pdb
 C:\Users\yurijs\Dropbox\Learning\C_sharp\CSharp_Chat_Project\AMQ\Publisher-Subscriber_example\Core\ActiveMqMessageChat\bin\Debug\ActiveMqMessageChat.exe
 C:\Users\yurijs\Dropbox\Learning\C_sharp\CSharp_Chat_Project\AMQ\Publisher-Subscriber_example\Core\ActiveMqMessageChat\bin\Debug\ActiveMqMessageChat.pdb
 C:\Users\yurijs\Dropbox\Learning\C_sharp\CSharp_Chat_Project\AMQ\Publisher-Subscriber_example\Core\ActiveMqMessageChat\bin\Debug\BackEndMocker.dll
@@ -24,3 +22,5 @@ C:\Users\yurijs\Dropbox\Learning\C_sharp\CSharp_Chat_Project\AMQ\Publisher-Subsc
 C:\Users\yurijs\Dropbox\Learning\C_sharp\CSharp_Chat_Project\AMQ\Publisher-Subscriber_example\Core\ActiveMqMessageChat\obj\Debug\ActiveMqMessageChat.MainForm.resources
 C:\Users\yurijs\Dropbox\Learning\C_sharp\CSharp_Chat_Project\AMQ\Publisher-Subscriber_example\Core\ActiveMqMessageChat\obj\Debug\ActiveMqMessageChat.Properties.Resources.resources
 C:\Users\yurijs\Dropbox\Learning\C_sharp\CSharp_Chat_Project\AMQ\Publisher-Subscriber_example\Core\ActiveMqMessageChat\obj\Debug\ActiveMqMessageChat.csproj.GenerateResource.Cache
+C:\Users\yurijs\Dropbox\Learning\C_sharp\CSharp_Chat_Project\AMQ\Publisher-Subscriber_example\Core\ActiveMqMessageChat\obj\Debug\ActiveMqMessageChat.exe
+C:\Users\yurijs\Dropbox\Learning\C_sharp\CSharp_Chat_Project\AMQ\Publisher-Subscriber_example\Core\ActiveMqMessageChat\obj\Debug\ActiveMqMessageChat.pdb

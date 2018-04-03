@@ -121,10 +121,10 @@
         private System.Windows.Forms.Label clientIdLabel;
         private System.Windows.Forms.TextBox clientIdTextBox;
         private System.Windows.Forms.Button connectButton;
-        private System.Windows.Forms.TextBox messageTextBox;
+        public System.Windows.Forms.TextBox messageTextBox;
         private System.Windows.Forms.Label instructionLabel;
         private System.Windows.Forms.Button submitButton;
-        private System.Windows.Forms.TextBox historyTextBox;
+        public System.Windows.Forms.TextBox historyTextBox;
     }
 }
 

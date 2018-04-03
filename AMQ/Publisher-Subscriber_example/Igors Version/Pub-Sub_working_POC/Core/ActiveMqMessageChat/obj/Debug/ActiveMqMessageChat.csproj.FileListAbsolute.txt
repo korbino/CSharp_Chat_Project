@@ -1,0 +1,32 @@
+C:\Users\yurijs\Dropbox\Learning\C_sharp\CSharp_Chat_Project\Publisher-Subscriber_example\Core\ActiveMqMessageChat\obj\Debug\ActiveMqMessageChat.csprojResolveAssemblyReference.cache
+C:\Users\yurijs\Dropbox\Learning\C_sharp\CSharp_Chat_Project\Publisher-Subscriber_example\Core\ActiveMqMessageChat\obj\Debug\ActiveMqMessageChat.MainForm.resources
+C:\Users\yurijs\Dropbox\Learning\C_sharp\CSharp_Chat_Project\Publisher-Subscriber_example\Core\ActiveMqMessageChat\obj\Debug\ActiveMqMessageChat.Properties.Resources.resources
+C:\Users\yurijs\Dropbox\Learning\C_sharp\CSharp_Chat_Project\Publisher-Subscriber_example\Core\ActiveMqMessageChat\obj\Debug\ActiveMqMessageChat.csproj.GenerateResource.Cache
+C:\Users\yurijs\Dropbox\Learning\C_sharp\CSharp_Chat_Project\Publisher-Subscriber_example\Core\ActiveMqMessageChat\bin\Debug\ActiveMqMessageChat.exe.config
+C:\Users\yurijs\Dropbox\Learning\C_sharp\CSharp_Chat_Project\Publisher-Subscriber_example\Core\ActiveMqMessageChat\bin\Debug\ActiveMqMessageChat.exe
+C:\Users\yurijs\Dropbox\Learning\C_sharp\CSharp_Chat_Project\Publisher-Subscriber_example\Core\ActiveMqMessageChat\bin\Debug\ActiveMqMessageChat.pdb
+C:\Users\yurijs\Dropbox\Learning\C_sharp\CSharp_Chat_Project\Publisher-Subscriber_example\Core\ActiveMqMessageChat\bin\Debug\Apache.NMS.ActiveMQ.dll
+C:\Users\yurijs\Dropbox\Learning\C_sharp\CSharp_Chat_Project\Publisher-Subscriber_example\Core\ActiveMqMessageChat\bin\Debug\Apache.NMS.dll
+C:\Users\yurijs\Dropbox\Learning\C_sharp\CSharp_Chat_Project\Publisher-Subscriber_example\Core\ActiveMqMessageChat\bin\Debug\Core.dll
+C:\Users\yurijs\Dropbox\Learning\C_sharp\CSharp_Chat_Project\Publisher-Subscriber_example\Core\ActiveMqMessageChat\bin\Debug\Core.pdb
+C:\Users\yurijs\Dropbox\Learning\C_sharp\CSharp_Chat_Project\Publisher-Subscriber_example\Core\ActiveMqMessageChat\obj\Debug\ActiveMqMessageChat.exe
+C:\Users\yurijs\Dropbox\Learning\C_sharp\CSharp_Chat_Project\Publisher-Subscriber_example\Core\ActiveMqMessageChat\obj\Debug\ActiveMqMessageChat.pdb
+C:\Users\yurijs\Dropbox\Learning\C_sharp\CSharp_Chat_Project\Publisher-Subscriber_example\Core\ActiveMqMessageChat\obj\Debug\ActiveMqMessageChat.LaunchForm.resources
+D:\C_sharp_advanced\AMQ\SourceCode\Pub-Sub_working_POC\Core\ActiveMqMessageChat\bin\Debug\ActiveMqMessageChat.exe.config
+D:\C_sharp_advanced\AMQ\SourceCode\Pub-Sub_working_POC\Core\ActiveMqMessageChat\obj\Debug\ActiveMqMessageChat.exe
+D:\C_sharp_advanced\AMQ\SourceCode\Pub-Sub_working_POC\Core\ActiveMqMessageChat\obj\Debug\ActiveMqMessageChat.pdb
+D:\C_sharp_advanced\AMQ\SourceCode\Pub-Sub_working_POC\Core\ActiveMqMessageChat\bin\Debug\ActiveMqMessageChat.exe
+D:\C_sharp_advanced\AMQ\SourceCode\Pub-Sub_working_POC\Core\ActiveMqMessageChat\bin\Debug\ActiveMqMessageChat.pdb
+D:\C_sharp_advanced\AMQ\SourceCode\Pub-Sub_working_POC\Core\ActiveMqMessageChat\bin\Debug\Core.dll
+D:\C_sharp_advanced\AMQ\SourceCode\Pub-Sub_working_POC\Core\ActiveMqMessageChat\bin\Debug\Core.pdb
+D:\C_sharp_advanced\AMQ\SourceCode\Pub-Sub_working_POC\Core\ActiveMqMessageChat\obj\Debug\ActiveMqMessageChat.csprojResolveAssemblyReference.cache
+D:\C_sharp_advanced\AMQ\SourceCode\Pub-Sub_working_POC\Core\ActiveMqMessageChat\obj\Debug\ActiveMqMessageChat.LaunchForm.resources
+D:\C_sharp_advanced\AMQ\SourceCode\Pub-Sub_working_POC\Core\ActiveMqMessageChat\obj\Debug\ActiveMqMessageChat.MainForm.resources
+D:\C_sharp_advanced\AMQ\SourceCode\Pub-Sub_working_POC\Core\ActiveMqMessageChat\obj\Debug\ActiveMqMessageChat.Properties.Resources.resources
+D:\C_sharp_advanced\AMQ\SourceCode\Pub-Sub_working_POC\Core\ActiveMqMessageChat\obj\Debug\ActiveMqMessageChat.csproj.GenerateResource.Cache
+C:\Users\yurijs\Desktop\Pub-Sub_working_POC (2)\Pub-Sub_working_POC\Core\ActiveMqMessageChat\bin\Debug\ActiveMqMessageChat.exe.config
+C:\Users\yurijs\Desktop\Pub-Sub_working_POC (2)\Pub-Sub_working_POC\Core\ActiveMqMessageChat\obj\Debug\ActiveMqMessageChat.exe
+C:\Users\yurijs\Desktop\Pub-Sub_working_POC (2)\Pub-Sub_working_POC\Core\ActiveMqMessageChat\obj\Debug\ActiveMqMessageChat.pdb
+C:\Users\yurijs\Dropbox\Learning\C_sharp\CSharp_Chat_Project\AMQ\Publisher-Subscriber_example\Igors Version\Pub-Sub_working_POC\Core\ActiveMqMessageChat\bin\Debug\ActiveMqMessageChat.exe.config
+C:\Users\yurijs\Dropbox\Learning\C_sharp\CSharp_Chat_Project\AMQ\Publisher-Subscriber_example\Igors Version\Pub-Sub_working_POC\Core\ActiveMqMessageChat\obj\Debug\ActiveMqMessageChat.exe
+C:\Users\yurijs\Dropbox\Learning\C_sharp\CSharp_Chat_Project\AMQ\Publisher-Subscriber_example\Igors Version\Pub-Sub_working_POC\Core\ActiveMqMessageChat\obj\Debug\ActiveMqMessageChat.pdb

@@ -14,64 +14,20 @@ using BackEndMocker;
 namespace ActiveMqMessageChat
 {
     public partial class MainForm : Form
-    {
-        private delegate void SetTextCallback(string text);
-        private BrokerClientManager broCliMan = new BrokerClientManager();
-        private string selfName;
+    {        
+        private BrokerClientManager broCliMan = new BrokerClientManager();        
 
         public MainForm()
         {            
             InitializeComponent();
-        }
-
-        private void subscriber_OnMessageReceived(string message)
-        {
-            broCliMan.builder.AppendLine(message);
-            SetText(broCliMan.builder.ToString());
-        }
-
-        private void SetText(string text)
-        {
-            // InvokeRequired required compares the thread ID of the
-            // calling thread to the thread ID of the creating thread.
-            // If these threads are different, it returns true.            
-            if (this.historyTextBox.InvokeRequired)
-            {
-                SetTextCallback d = new SetTextCallback(SetText);
-                this.Invoke(d, new object[] { text });
-            }
-            else
-            {
-                this.historyTextBox.Text = text;
-            }
-        }
-
-        private void MainForm_FormClosed(object sender, FormClosedEventArgs e)
-        {
-            try
-            {
-                broCliMan.publisher.Dispose();
-                broCliMan.subscriber.Dispose();
-                broCliMan.connection.Dispose();
-            }
-            catch { }
-        }      
+        }             
 
         private void connectButton_Click_1(object sender, EventArgs e)
         {
             try
             {
-                //Get client ID
-                broCliMan.clientId = this.clientIdTextBox.Text;
-                broCliMan.consumerId = broCliMan.clientId;
-                selfName = broCliMan.clientId;               
-
-                //init self pub-subscriber section:
-                broCliMan.connection = broCliMan.connectionFactory.CreateConnection(broCliMan.clientId, broCliMan.TOPIC_NAME);                
-                broCliMan.publisher = broCliMan.connection.CreateTopicPublisher();               
-                broCliMan.subscriber = broCliMan.connection.CreateSimpleTopicSubscriber(broCliMan.consumerId);
-
-                broCliMan.subscriber.OnMessageReceived += new MessageRecieverDelegate(subscriber_OnMessageReceived);
+                //create connection
+                broCliMan.Connection(this.clientIdTextBox.Text, this);                                                              
 
                 this.clientIdLabel.Enabled = false;
                 this.clientIdTextBox.Enabled = false;
@@ -87,10 +43,19 @@ namespace ActiveMqMessageChat
                 this.Close();
             }
         }
-
+        
         private void submitButton_Click_1(object sender, EventArgs e)
         {
-            broCliMan.publisher.SendMessage(this.selfName + "::::   " + this.messageTextBox.Text);
+            broCliMan.SendMessage();            
+        }
+
+        private void MainForm_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            try
+            {
+                broCliMan.Dispose();
+            }
+            catch { }
         }
     }
 }

@@ -1,0 +1,9 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Structure>
+<DBpath>Server = PCTEST; Database = teamChatDb; User Id = pctest\\ig; Password = max9090_();Trusted_Connection = true</DBpath>
+<PublicKeyPath>C:\PublicKey.txt</PublicKeyPath>
+<ActiveMqBroker>tcp://pctest:61616</ActiveMqBroker>
+</Structure>
+
+
+    
