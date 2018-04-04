@@ -29,7 +29,6 @@
         private void InitializeComponent()
         {
             this.clientIdLabel = new System.Windows.Forms.Label();
-            this.clientIdTextBox = new System.Windows.Forms.TextBox();
             this.connectButton = new System.Windows.Forms.Button();
             this.messageTextBox = new System.Windows.Forms.TextBox();
             this.instructionLabel = new System.Windows.Forms.Label();
@@ -38,7 +37,8 @@
             this.userPassLabel = new System.Windows.Forms.Label();
             this.passwordTextBox = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.usersInDBComboBox = new System.Windows.Forms.ComboBox();
+            this.targetUserComboBox = new System.Windows.Forms.ComboBox();
+            this.initUserComboBox = new System.Windows.Forms.ComboBox();
             this.SuspendLayout();
             // 
             // clientIdLabel
@@ -49,13 +49,6 @@
             this.clientIdLabel.Size = new System.Drawing.Size(63, 13);
             this.clientIdLabel.TabIndex = 0;
             this.clientIdLabel.Text = "User Name:";
-            // 
-            // clientIdTextBox
-            // 
-            this.clientIdTextBox.Location = new System.Drawing.Point(78, 9);
-            this.clientIdTextBox.Name = "clientIdTextBox";
-            this.clientIdTextBox.Size = new System.Drawing.Size(162, 20);
-            this.clientIdTextBox.TabIndex = 1;
             // 
             // connectButton
             // 
@@ -129,18 +122,27 @@
             // 
             // usersInDBComboBox
             // 
-            this.usersInDBComboBox.FormattingEnabled = true;
-            this.usersInDBComboBox.Location = new System.Drawing.Point(78, 100);
-            this.usersInDBComboBox.Name = "usersInDBComboBox";
-            this.usersInDBComboBox.Size = new System.Drawing.Size(121, 21);
-            this.usersInDBComboBox.TabIndex = 10;
+            this.targetUserComboBox.FormattingEnabled = true;
+            this.targetUserComboBox.Location = new System.Drawing.Point(78, 100);
+            this.targetUserComboBox.Name = "usersInDBComboBox";
+            this.targetUserComboBox.Size = new System.Drawing.Size(121, 21);
+            this.targetUserComboBox.TabIndex = 10;
+            // 
+            // initUserComboBox
+            // 
+            this.initUserComboBox.FormattingEnabled = true;
+            this.initUserComboBox.Location = new System.Drawing.Point(78, 12);
+            this.initUserComboBox.Name = "initUserComboBox";
+            this.initUserComboBox.Size = new System.Drawing.Size(162, 21);
+            this.initUserComboBox.TabIndex = 11;
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(354, 457);
-            this.Controls.Add(this.usersInDBComboBox);
+            this.Controls.Add(this.initUserComboBox);
+            this.Controls.Add(this.targetUserComboBox);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.passwordTextBox);
             this.Controls.Add(this.userPassLabel);
@@ -149,7 +151,6 @@
             this.Controls.Add(this.instructionLabel);
             this.Controls.Add(this.messageTextBox);
             this.Controls.Add(this.connectButton);
-            this.Controls.Add(this.clientIdTextBox);
             this.Controls.Add(this.clientIdLabel);
             this.Name = "MainForm";
             this.Text = "MainForm";
@@ -161,7 +162,6 @@
         #endregion
 
         private System.Windows.Forms.Label clientIdLabel;
-        public System.Windows.Forms.TextBox clientIdTextBox;
         private System.Windows.Forms.Button connectButton;
         public System.Windows.Forms.TextBox messageTextBox;
         private System.Windows.Forms.Label instructionLabel;
@@ -170,7 +170,8 @@
         private System.Windows.Forms.Label userPassLabel;
         public System.Windows.Forms.TextBox passwordTextBox;
         private System.Windows.Forms.Label label1;
-        public System.Windows.Forms.ComboBox usersInDBComboBox;
+        public System.Windows.Forms.ComboBox targetUserComboBox;
+        public System.Windows.Forms.ComboBox initUserComboBox;
     }
 }
 

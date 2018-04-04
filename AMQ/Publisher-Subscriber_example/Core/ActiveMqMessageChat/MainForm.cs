@@ -16,14 +16,18 @@ namespace ActiveMqMessageChat
     public partial class MainForm : Form
     {        
         private BrokerClientManager broCliMan = new BrokerClientManager();
-        BindingSource bs = new BindingSource();   //this is for combobox user list from db     
+        BindingSource bindSourceForTargetUser = new BindingSource();   //this is for combobox user list from db   
+        BindingSource binSourceForInitUser = new BindingSource();  
 
         public MainForm()
         {            
             InitializeComponent();
             //extract users list from DB: 
-            bs.DataSource = broCliMan.brSQLCommunicationMocker.GetUserListFromDB();
-            usersInDBComboBox.DataSource = bs;
+            bindSourceForTargetUser.DataSource = broCliMan.brSQLCommunicationMocker.GetUserListFromDB();
+            binSourceForInitUser.DataSource = broCliMan.brSQLCommunicationMocker.GetUserListFromDB();
+
+            initUserComboBox.DataSource = binSourceForInitUser;
+            targetUserComboBox.DataSource = bindSourceForTargetUser;
         }             
 
         private void connectButton_Click_1(object sender, EventArgs e)
@@ -31,21 +35,22 @@ namespace ActiveMqMessageChat
             try
             {                               
                 //create connection
-                broCliMan.Connection(this.clientIdTextBox.Text, this);                                                              
+                broCliMan.Connection(this);                
 
+                this.targetUserComboBox.Enabled = false;
                 this.clientIdLabel.Enabled = false;
-                this.clientIdTextBox.Enabled = false;
+                this.initUserComboBox.Enabled = false;
                 this.connectButton.Enabled = false;
                 this.messageTextBox.Enabled = true;
                 this.instructionLabel.Enabled = true;
                 this.historyTextBox.Enabled = true;
                 this.submitButton.Enabled = true;
-                this.usersInDBComboBox.Enabled = false;
+                this.targetUserComboBox.Enabled = false;
                 this.passwordTextBox.Enabled = false;            
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.ToString());
+                MessageBox.Show(ex.Message);
                 this.Close();
             }
         }

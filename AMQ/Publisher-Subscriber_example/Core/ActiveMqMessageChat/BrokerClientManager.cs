@@ -42,16 +42,16 @@ namespace ActiveMqMessageChat
         /// Creating connection with self pub\subscr in durable mode
         /// </summary>
         /// <param name="clientId">currently this is user id, which defining in form</param>        
-        public void Connection (string clientId, MainForm mainForm)
+        public void Connection (MainForm mainForm)
         {        
-            if (brAuthMocker.IsUserAuthenticated(mainForm.clientIdTextBox.Text, mainForm.passwordTextBox.Text))
+            if (brAuthMocker.IsUserAuthenticated(mainForm.initUserComboBox.Text, mainForm.passwordTextBox.Text))
             {
                 this.mainForm = mainForm;//init main form, probably will need to move to constructor if this.
 
                 InitTopicName();//init according to choosed users in form
 
                 //Get client ID
-                this.clientId = clientId;
+                this.clientId = mainForm.initUserComboBox.Text;
                 consumerId = this.clientId;
                 
 
@@ -77,7 +77,7 @@ namespace ActiveMqMessageChat
         #region PRIVATE METHODS:
         private void InitTopicName ()
         {            
-            this.TOPIC_NAME = brSQLCommunicationMocker.CreateNewTopicID(mainForm.clientIdTextBox.Text, mainForm.usersInDBComboBox.SelectedText).ToString();
+            this.TOPIC_NAME = brSQLCommunicationMocker.CreateNewTopicID(mainForm.initUserComboBox.Text, mainForm.targetUserComboBox.Text).ToString();
         }
 
         private void subscriber_OnMessageReceived(string message)
