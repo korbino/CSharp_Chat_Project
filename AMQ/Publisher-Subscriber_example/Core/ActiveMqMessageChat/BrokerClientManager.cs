@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Core;
 using Apache.NMS.ActiveMQ;
 using BackEndMocker;
+using System.Windows.Forms;
 
 namespace ActiveMqMessageChat
 {
@@ -31,8 +32,9 @@ namespace ActiveMqMessageChat
         //private fields:
         private MainForm mainForm;
 
-        public BrokerClientManager()
+        public BrokerClientManager(MainForm mainForm)
         {
+            this.mainForm = mainForm;
             //init connection factory:
             string BROKER = "tcp://" + brConfigMocker.BrokerLocation + ":" + brConfigMocker.BrokerPortConnection;//localhost:61616";
             connectionFactory = new TopicConnectionFactory(new ConnectionFactory(BROKER));                        
@@ -42,12 +44,10 @@ namespace ActiveMqMessageChat
         /// Creating connection with self pub\subscr in durable mode
         /// </summary>
         /// <param name="clientId">currently this is user id, which defining in form</param>        
-        public void Connection (MainForm mainForm)
+        public void Connection ()
         {        
             if (brAuthMocker.IsUserAuthenticated(mainForm.initUserComboBox.Text, mainForm.passwordTextBox.Text))
-            {
-                this.mainForm = mainForm;//init main form, probably will need to move to constructor if this.
-
+            {               
                 InitTopicName();//init according to choosed users in form
 
                 //Get client ID
@@ -71,7 +71,22 @@ namespace ActiveMqMessageChat
 
         public void SendMessage ()
         {
-            publisher.SendMessage(clientId + "::::   " + mainForm.messageTextBox.Text);
+            publisher.SendMessage(clientId + " (" + DateTime.Now + ") -> " + mainForm.messageTextBox.Text);
+            mainForm.messageTextBox.Text = "";
+        }
+
+        /// <summary>
+        /// Extract users from DB and propagate them to user's comboboxes
+        /// </summary>
+        public void InitUsersComboboxes ()
+        {
+            //extract users list from DB: 
+            BindingSource bindSourceForTargetUser = new BindingSource();   //this is for combobox user list from db   
+            BindingSource binSourceForInitUser = new BindingSource();  // same for init user list            
+            bindSourceForTargetUser.DataSource = brSQLCommunicationMocker.GetUserListFromDB();
+            binSourceForInitUser.DataSource = brSQLCommunicationMocker.GetUserListFromDB();
+            mainForm.initUserComboBox.DataSource = binSourceForInitUser;
+            mainForm.targetUserComboBox.DataSource = bindSourceForTargetUser;
         }
 
         #region PRIVATE METHODS:

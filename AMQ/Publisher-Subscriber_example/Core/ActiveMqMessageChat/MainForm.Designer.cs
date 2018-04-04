@@ -46,9 +46,9 @@
             this.clientIdLabel.AutoSize = true;
             this.clientIdLabel.Location = new System.Drawing.Point(12, 12);
             this.clientIdLabel.Name = "clientIdLabel";
-            this.clientIdLabel.Size = new System.Drawing.Size(63, 13);
+            this.clientIdLabel.Size = new System.Drawing.Size(36, 13);
             this.clientIdLabel.TabIndex = 0;
-            this.clientIdLabel.Text = "User Name:";
+            this.clientIdLabel.Text = "Login:";
             // 
             // connectButton
             // 
@@ -100,14 +100,15 @@
             this.userPassLabel.AutoSize = true;
             this.userPassLabel.Location = new System.Drawing.Point(12, 44);
             this.userPassLabel.Name = "userPassLabel";
-            this.userPassLabel.Size = new System.Drawing.Size(58, 13);
+            this.userPassLabel.Size = new System.Drawing.Size(56, 13);
             this.userPassLabel.TabIndex = 7;
-            this.userPassLabel.Text = "User Pass:";
+            this.userPassLabel.Text = "Password:";
             // 
             // passwordTextBox
             // 
             this.passwordTextBox.Location = new System.Drawing.Point(78, 44);
             this.passwordTextBox.Name = "passwordTextBox";
+            this.passwordTextBox.PasswordChar = '*';
             this.passwordTextBox.Size = new System.Drawing.Size(162, 20);
             this.passwordTextBox.TabIndex = 8;
             // 
@@ -120,11 +121,11 @@
             this.label1.TabIndex = 9;
             this.label1.Text = "Select User To Speak:";
             // 
-            // usersInDBComboBox
+            // targetUserComboBox
             // 
             this.targetUserComboBox.FormattingEnabled = true;
             this.targetUserComboBox.Location = new System.Drawing.Point(78, 100);
-            this.targetUserComboBox.Name = "usersInDBComboBox";
+            this.targetUserComboBox.Name = "targetUserComboBox";
             this.targetUserComboBox.Size = new System.Drawing.Size(121, 21);
             this.targetUserComboBox.TabIndex = 10;
             // 

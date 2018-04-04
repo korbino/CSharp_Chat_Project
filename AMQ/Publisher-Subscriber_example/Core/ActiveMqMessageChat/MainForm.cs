@@ -14,20 +14,18 @@ using BackEndMocker;
 namespace ActiveMqMessageChat
 {
     public partial class MainForm : Form
-    {        
-        private BrokerClientManager broCliMan = new BrokerClientManager();
-        BindingSource bindSourceForTargetUser = new BindingSource();   //this is for combobox user list from db   
-        BindingSource binSourceForInitUser = new BindingSource();  
-
+    {
+        BrokerClientManager broCliMan;
+       
         public MainForm()
         {            
             InitializeComponent();
-            //extract users list from DB: 
-            bindSourceForTargetUser.DataSource = broCliMan.brSQLCommunicationMocker.GetUserListFromDB();
-            binSourceForInitUser.DataSource = broCliMan.brSQLCommunicationMocker.GetUserListFromDB();
+            broCliMan = new BrokerClientManager(this);
+            broCliMan.InitUsersComboboxes();
 
-            initUserComboBox.DataSource = binSourceForInitUser;
-            targetUserComboBox.DataSource = bindSourceForTargetUser;
+            this.messageTextBox.Enabled = false;
+            this.historyTextBox.Enabled = false;
+            this.submitButton.Enabled = false;
         }             
 
         private void connectButton_Click_1(object sender, EventArgs e)
@@ -35,7 +33,7 @@ namespace ActiveMqMessageChat
             try
             {                               
                 //create connection
-                broCliMan.Connection(this);                
+                broCliMan.Connection();                
 
                 this.targetUserComboBox.Enabled = false;
                 this.clientIdLabel.Enabled = false;
