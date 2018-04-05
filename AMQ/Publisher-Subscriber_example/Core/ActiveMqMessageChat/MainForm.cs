@@ -26,30 +26,19 @@ namespace ActiveMqMessageChat
             this.messageTextBox.Enabled = false;
             this.historyTextBox.Enabled = false;
             this.submitButton.Enabled = false;
+            this.targetUserComboBox.Enabled = false;
+            this.startDialogButton.Enabled = false;
         }             
 
         private void connectButton_Click_1(object sender, EventArgs e)
         {
             try
             {                               
-                //create connection
-                broCliMan.Connection();                
-
-                this.targetUserComboBox.Enabled = false;
-                this.clientIdLabel.Enabled = false;
-                this.initUserComboBox.Enabled = false;
-                this.connectButton.Enabled = false;
-                this.messageTextBox.Enabled = true;
-                this.instructionLabel.Enabled = true;
-                this.historyTextBox.Enabled = true;
-                this.submitButton.Enabled = true;
-                this.targetUserComboBox.Enabled = false;
-                this.passwordTextBox.Enabled = false;            
+                broCliMan.MakeLogin();                                     
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
-                this.Close();
+                MessageBox.Show(ex.Message);                
             }
         }
         
@@ -72,5 +61,17 @@ namespace ActiveMqMessageChat
 
         }
 
+        private void startDialogButton_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                broCliMan.StartDialog();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);                
+            }
+            
+        }
     }
 }

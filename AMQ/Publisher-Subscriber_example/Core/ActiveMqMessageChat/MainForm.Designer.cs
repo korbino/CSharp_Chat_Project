@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.clientIdLabel = new System.Windows.Forms.Label();
-            this.connectButton = new System.Windows.Forms.Button();
+            this.loginButton = new System.Windows.Forms.Button();
             this.messageTextBox = new System.Windows.Forms.TextBox();
             this.instructionLabel = new System.Windows.Forms.Label();
             this.submitButton = new System.Windows.Forms.Button();
@@ -39,6 +39,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.targetUserComboBox = new System.Windows.Forms.ComboBox();
             this.initUserComboBox = new System.Windows.Forms.ComboBox();
+            this.startDialogButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // clientIdLabel
@@ -50,15 +51,15 @@
             this.clientIdLabel.TabIndex = 0;
             this.clientIdLabel.Text = "Login:";
             // 
-            // connectButton
+            // loginButton
             // 
-            this.connectButton.Location = new System.Drawing.Point(262, 9);
-            this.connectButton.Name = "connectButton";
-            this.connectButton.Size = new System.Drawing.Size(75, 56);
-            this.connectButton.TabIndex = 2;
-            this.connectButton.Text = "Connect";
-            this.connectButton.UseVisualStyleBackColor = true;
-            this.connectButton.Click += new System.EventHandler(this.connectButton_Click_1);
+            this.loginButton.Location = new System.Drawing.Point(262, 9);
+            this.loginButton.Name = "loginButton";
+            this.loginButton.Size = new System.Drawing.Size(75, 56);
+            this.loginButton.TabIndex = 2;
+            this.loginButton.Text = "Login";
+            this.loginButton.UseVisualStyleBackColor = true;
+            this.loginButton.Click += new System.EventHandler(this.connectButton_Click_1);
             // 
             // messageTextBox
             // 
@@ -126,7 +127,7 @@
             this.targetUserComboBox.FormattingEnabled = true;
             this.targetUserComboBox.Location = new System.Drawing.Point(78, 100);
             this.targetUserComboBox.Name = "targetUserComboBox";
-            this.targetUserComboBox.Size = new System.Drawing.Size(121, 21);
+            this.targetUserComboBox.Size = new System.Drawing.Size(162, 21);
             this.targetUserComboBox.TabIndex = 10;
             // 
             // initUserComboBox
@@ -137,11 +138,22 @@
             this.initUserComboBox.Size = new System.Drawing.Size(162, 21);
             this.initUserComboBox.TabIndex = 11;
             // 
+            // startDialogButton
+            // 
+            this.startDialogButton.Location = new System.Drawing.Point(262, 98);
+            this.startDialogButton.Name = "startDialogButton";
+            this.startDialogButton.Size = new System.Drawing.Size(75, 23);
+            this.startDialogButton.TabIndex = 12;
+            this.startDialogButton.Text = "Start Dialog";
+            this.startDialogButton.UseVisualStyleBackColor = true;
+            this.startDialogButton.Click += new System.EventHandler(this.startDialogButton_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(354, 457);
+            this.Controls.Add(this.startDialogButton);
             this.Controls.Add(this.initUserComboBox);
             this.Controls.Add(this.targetUserComboBox);
             this.Controls.Add(this.label1);
@@ -151,7 +163,7 @@
             this.Controls.Add(this.submitButton);
             this.Controls.Add(this.instructionLabel);
             this.Controls.Add(this.messageTextBox);
-            this.Controls.Add(this.connectButton);
+            this.Controls.Add(this.loginButton);
             this.Controls.Add(this.clientIdLabel);
             this.Name = "MainForm";
             this.Text = "MainForm";
@@ -162,17 +174,18 @@
 
         #endregion
 
-        private System.Windows.Forms.Label clientIdLabel;
-        private System.Windows.Forms.Button connectButton;
+        public System.Windows.Forms.Label clientIdLabel;
+        public System.Windows.Forms.Button loginButton;
         public System.Windows.Forms.TextBox messageTextBox;
-        private System.Windows.Forms.Label instructionLabel;
-        private System.Windows.Forms.Button submitButton;
+        public System.Windows.Forms.Label instructionLabel;
+        public System.Windows.Forms.Button submitButton;
         public System.Windows.Forms.TextBox historyTextBox;
-        private System.Windows.Forms.Label userPassLabel;
+        public System.Windows.Forms.Label userPassLabel;
         public System.Windows.Forms.TextBox passwordTextBox;
-        private System.Windows.Forms.Label label1;
+        public System.Windows.Forms.Label label1;
         public System.Windows.Forms.ComboBox targetUserComboBox;
         public System.Windows.Forms.ComboBox initUserComboBox;
+        public System.Windows.Forms.Button startDialogButton;
     }
 }
 

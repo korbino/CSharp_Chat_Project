@@ -16,21 +16,19 @@ namespace ActiveMqMessageChat
 
         //mockers init:
         BrokerConfigMocker brConfigMocker = new BrokerConfigMocker();
-        public BrokerAuthenticationMocker brAuthMocker = new BrokerAuthenticationMocker();
-        public BrokerSQLCommunicationMocker brSQLCommunicationMocker = new BrokerSQLCommunicationMocker();
+        BrokerAuthenticationMocker brAuthMocker = new BrokerAuthenticationMocker();
+        BrokerSQLCommunicationMocker brSQLCommunicationMocker = new BrokerSQLCommunicationMocker();
         
-        //public fields definition        
-        public TopicConnectionFactory connectionFactory;            
-        public TopicConnection connection;
-        public SimpleTopicPublisher publisher;
-        public SimpleTopicSubscriber subscriber;
-        public string clientId;
-        public string consumerId;
-        public readonly StringBuilder builder = new StringBuilder();
-        public string TOPIC_NAME = "TestTopicName";        
-
-        //private fields:
-        private MainForm mainForm;
+        //main objects       
+        TopicConnectionFactory connectionFactory;            
+        TopicConnection connection;
+        SimpleTopicPublisher publisher;
+        SimpleTopicSubscriber subscriber;
+        string clientId;
+        string consumerId;
+        readonly StringBuilder builder = new StringBuilder();
+        string TOPIC_NAME = "TestTopicName";                
+        MainForm mainForm;
 
         public BrokerClientManager(MainForm mainForm)
         {
@@ -41,32 +39,59 @@ namespace ActiveMqMessageChat
         }    
             
         /// <summary>
-        /// Creating connection with self pub\subscr in durable mode
-        /// </summary>
-        /// <param name="clientId">currently this is user id, which defining in form</param>        
-        public void Connection ()
+        /// Make login 
+        /// </summary>             
+        public void MakeLogin ()
         {        
             if (brAuthMocker.IsUserAuthenticated(mainForm.initUserComboBox.Text, mainForm.passwordTextBox.Text))
-            {               
-                InitTopicName();//init according to choosed users in form
-
+            {                              
                 //Get client ID
-                this.clientId = mainForm.initUserComboBox.Text;
-                consumerId = this.clientId;
-                
+                clientId = mainForm.initUserComboBox.Text;
+                consumerId = clientId;
 
-                //init self pub-subscriber section:
-                connection = connectionFactory.CreateConnection(clientId, TOPIC_NAME);
-                publisher = connection.CreateTopicPublisher();
-                subscriber = connection.CreateSimpleTopicSubscriber(consumerId);
-
-                subscriber.OnMessageReceived += new MessageRecieverDelegate(subscriber_OnMessageReceived);
+                //manage UI
+                mainForm.targetUserComboBox.Enabled = true;
+                mainForm.startDialogButton.Enabled = true;
+                mainForm.clientIdLabel.Enabled = false;
+                mainForm.initUserComboBox.Enabled = false;
+                mainForm.loginButton.Enabled = false;
+                mainForm.instructionLabel.Enabled = true;                
+                mainForm.passwordTextBox.Enabled = false;
             }  
             else
             {
                 throw new Exception("User is not Authenticate!");
             }
             
+        }
+
+
+        /// <summary>
+        /// Create topic ID  according to selected users and init client
+        /// </summary>
+        public void StartDialog()
+        {
+            try
+            {
+                InitTopicName();//init according to choosed users in form
+            }
+            catch (Exception e)
+            {
+                throw new Exception("Failed to start conversation because of: " + e.Message);
+            }
+            
+            //init self pub-subscriber section:
+            connection = connectionFactory.CreateConnection(clientId, TOPIC_NAME);
+            publisher = connection.CreateTopicPublisher();
+            subscriber = connection.CreateSimpleTopicSubscriber(consumerId);
+            subscriber.OnMessageReceived += new MessageRecieverDelegate(subscriber_OnMessageReceived);
+
+            //manage UI
+            mainForm.targetUserComboBox.Enabled = false;
+            mainForm.startDialogButton.Enabled = false;
+            mainForm.messageTextBox.Enabled = true;
+            mainForm.submitButton.Enabled = true;
+            mainForm.historyTextBox.Enabled = true;
         }
 
         public void SendMessage ()
@@ -91,8 +116,16 @@ namespace ActiveMqMessageChat
 
         #region PRIVATE METHODS:
         private void InitTopicName ()
-        {            
-            this.TOPIC_NAME = brSQLCommunicationMocker.CreateNewTopicID(mainForm.initUserComboBox.Text, mainForm.targetUserComboBox.Text).ToString();
+        {
+            try
+            {
+                TOPIC_NAME = brSQLCommunicationMocker.CreateNewTopicID(mainForm.initUserComboBox.Text, mainForm.targetUserComboBox.Text).ToString();
+            }   
+            catch (Exception e)
+            {
+                throw e;
+            }
+            
         }
 
         private void subscriber_OnMessageReceived(string message)
