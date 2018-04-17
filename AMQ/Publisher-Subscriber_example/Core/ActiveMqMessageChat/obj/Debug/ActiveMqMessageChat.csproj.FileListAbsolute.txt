@@ -24,3 +24,4 @@ C:\Users\yurijs\Dropbox\Learning\C_sharp\CSharp_Chat_Project\AMQ\Publisher-Subsc
 C:\Users\yurijs\Dropbox\Learning\C_sharp\CSharp_Chat_Project\AMQ\Publisher-Subscriber_example\Core\ActiveMqMessageChat\obj\Debug\ActiveMqMessageChat.csproj.GenerateResource.Cache
 C:\Users\yurijs\Dropbox\Learning\C_sharp\CSharp_Chat_Project\AMQ\Publisher-Subscriber_example\Core\ActiveMqMessageChat\obj\Debug\ActiveMqMessageChat.exe
 C:\Users\yurijs\Dropbox\Learning\C_sharp\CSharp_Chat_Project\AMQ\Publisher-Subscriber_example\Core\ActiveMqMessageChat\obj\Debug\ActiveMqMessageChat.pdb
+C:\Users\yurijs\Dropbox\Learning\C_sharp\CSharp_Chat_Project\AMQ\Publisher-Subscriber_example\Core\ActiveMqMessageChat\bin\Debug\IfrastructureChat.dll

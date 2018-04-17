@@ -56,11 +56,6 @@ namespace ActiveMqMessageChat
             catch { }
         }
 
-        private void instructionLabel_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private void startDialogButton_Click(object sender, EventArgs e)
         {
             try

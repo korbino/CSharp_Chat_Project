@@ -76,7 +76,7 @@
             this.instructionLabel.Size = new System.Drawing.Size(78, 13);
             this.instructionLabel.TabIndex = 4;
             this.instructionLabel.Text = "Send Message";
-            this.instructionLabel.Click += new System.EventHandler(this.instructionLabel_Click);
+            //this.instructionLabel.Click += new System.EventHandler(this.instructionLabel_Click);
             // 
             // submitButton
             // 

@@ -7,6 +7,7 @@ using Core;
 using Apache.NMS.ActiveMQ;
 using BackEndMocker;
 using System.Windows.Forms;
+using InfrastructureChat;
 
 namespace ActiveMqMessageChat
 {
@@ -15,11 +16,11 @@ namespace ActiveMqMessageChat
         private delegate void SetTextCallback(string text);
 
         //mockers init:
-        BrokerConfigMocker brConfigMocker = new BrokerConfigMocker();
+        //BrokerConfigMocker brConfigMocker = new BrokerConfigMocker(); // obsolete
         BrokerAuthenticationMocker brAuthMocker = new BrokerAuthenticationMocker();
         BrokerSQLCommunicationMocker brSQLCommunicationMocker = new BrokerSQLCommunicationMocker();
         
-        //main objects       
+        //main objects              
         TopicConnectionFactory connectionFactory;            
         TopicConnection connection;
         SimpleTopicPublisher publisher;
@@ -33,8 +34,9 @@ namespace ActiveMqMessageChat
         public BrokerClientManager(MainForm mainForm)
         {
             this.mainForm = mainForm;
-            //init connection factory:
-            string BROKER = "tcp://" + brConfigMocker.BrokerLocation + ":" + brConfigMocker.BrokerPortConnection;//localhost:61616";
+            //init connection factory:            
+            //config DLL - should be deployed under: C:\XMLconf\ConfigXMLChat.xml
+            string BROKER = "tcp://" + ConfigChatDll.ActiveMqBrokerLink() + ":" + ConfigChatDll.ActiveMqBrokerPort();//true DLL";
             connectionFactory = new TopicConnectionFactory(new ConnectionFactory(BROKER));                        
         }    
             
