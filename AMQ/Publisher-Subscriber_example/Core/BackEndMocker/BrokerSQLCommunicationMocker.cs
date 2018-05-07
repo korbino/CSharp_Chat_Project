@@ -11,17 +11,17 @@ namespace BackEndMocker
         public int CreateNewTopicID(string userOne, string userTwo)
         {
             //communication between user 1 and 2
-            if (userOne == "user_1" && userTwo == "user_2" || userOne == "user_2" && userTwo == "user_1")
+            if (userOne == "harden" && userTwo == "appntau" || userOne == "appntau" && userTwo == "harden")
             {
                 return 12;
             }
             //comm between 1 and 3
-            else if (userOne == "user_1" && userTwo == "user_3" || userOne == "user_3" && userTwo == "user_1")
+            else if (userOne == "harden" && userTwo == "dbntau" || userOne == "dbntau" && userTwo == "harden")
             {
                 return 13;
             }
             //comm between 2 and 3
-            else if (userOne == "user_2" && userTwo == "user_3" || userOne == "user_3" && userTwo == "user_2")
+            else if (userOne == "appntau" && userTwo == "dbntau" || userOne == "dbntau" && userTwo == "appntau")
             {
                 return 23;
             }

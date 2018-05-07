@@ -25,3 +25,6 @@ C:\Users\yurijs\Dropbox\Learning\C_sharp\CSharp_Chat_Project\AMQ\Publisher-Subsc
 C:\Users\yurijs\Dropbox\Learning\C_sharp\CSharp_Chat_Project\AMQ\Publisher-Subscriber_example\Core\ActiveMqMessageChat\obj\Debug\ActiveMqMessageChat.exe
 C:\Users\yurijs\Dropbox\Learning\C_sharp\CSharp_Chat_Project\AMQ\Publisher-Subscriber_example\Core\ActiveMqMessageChat\obj\Debug\ActiveMqMessageChat.pdb
 C:\Users\yurijs\Dropbox\Learning\C_sharp\CSharp_Chat_Project\AMQ\Publisher-Subscriber_example\Core\ActiveMqMessageChat\bin\Debug\IfrastructureChat.dll
+C:\Users\yurijs\Dropbox\Learning\C_sharp\CSharp_Chat_Project\AMQ\Publisher-Subscriber_example\Core\ActiveMqMessageChat\bin\Debug\AuthenticationDLL.dll
+C:\Users\yurijs\Dropbox\Learning\C_sharp\CSharp_Chat_Project\AMQ\Publisher-Subscriber_example\Core\ActiveMqMessageChat\bin\Debug\LoginFuncthionality.dll
+C:\Users\yurijs\Dropbox\Learning\C_sharp\CSharp_Chat_Project\AMQ\Publisher-Subscriber_example\Core\ActiveMqMessageChat\bin\Debug\SQLinfra.dll

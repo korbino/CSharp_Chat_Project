@@ -7,7 +7,11 @@ using Core;
 using Apache.NMS.ActiveMQ;
 using BackEndMocker;
 using System.Windows.Forms;
+//our dlls:
 using InfrastructureChat;
+using AuthenticationDLL;
+using LoginFuncthionality;
+using SQLinfra;
 
 namespace ActiveMqMessageChat
 {
@@ -17,8 +21,13 @@ namespace ActiveMqMessageChat
 
         //mockers init:
         //BrokerConfigMocker brConfigMocker = new BrokerConfigMocker(); // obsolete
-        BrokerAuthenticationMocker brAuthMocker = new BrokerAuthenticationMocker();
-        BrokerSQLCommunicationMocker brSQLCommunicationMocker = new BrokerSQLCommunicationMocker();
+        //BrokerAuthenticationMocker brAuthMocker = new BrokerAuthenticationMocker(); //obsolete        
+        //BrokerSQLCommunicationMocker brSQLCommunicationMocker = new BrokerSQLCommunicationMocker(); //TODO: igor to change
+
+        //Real Dll
+        LoginFunc loginFunc = new LoginFunc();
+        SQLInfrastructure sqlInfra = new SQLInfrastructure(ConfigChatDll.OpenXmlConnectionString());     
+        
         
         //main objects              
         TopicConnectionFactory connectionFactory;            
@@ -45,8 +54,9 @@ namespace ActiveMqMessageChat
         /// </summary>             
         public void MakeLogin ()
         {        
-            if (brAuthMocker.IsUserAuthenticated(mainForm.initUserComboBox.Text, mainForm.passwordTextBox.Text))
-            {                              
+            //if (brAuthMocker.IsUserAuthenticated(mainForm.initUserComboBox.Text, mainForm.passwordTextBox.Text)) //obsolete
+            if (loginFunc.IsUserCorrect(mainForm.initUserComboBox.Text, mainForm.passwordTextBox.Text))
+                {                              
                 //Get client ID
                 clientId = mainForm.initUserComboBox.Text;
                 consumerId = clientId;
@@ -110,8 +120,10 @@ namespace ActiveMqMessageChat
             //extract users list from DB: 
             BindingSource bindSourceForTargetUser = new BindingSource();   //this is for combobox user list from db   
             BindingSource binSourceForInitUser = new BindingSource();  // same for init user list            
-            bindSourceForTargetUser.DataSource = brSQLCommunicationMocker.GetUserListFromDB();
-            binSourceForInitUser.DataSource = brSQLCommunicationMocker.GetUserListFromDB();
+            //bindSourceForTargetUser.DataSource = brSQLCommunicationMocker.GetUserListFromDB(); //mockers
+            //binSourceForInitUser.DataSource = brSQLCommunicationMocker.GetUserListFromDB(); //mockers        
+            bindSourceForTargetUser.DataSource = sqlInfra.GetUserListFromDB();
+            binSourceForInitUser.DataSource = sqlInfra.GetUserListFromDB();
             mainForm.initUserComboBox.DataSource = binSourceForInitUser;
             mainForm.targetUserComboBox.DataSource = bindSourceForTargetUser;
         }
@@ -121,7 +133,8 @@ namespace ActiveMqMessageChat
         {
             try
             {
-                TOPIC_NAME = brSQLCommunicationMocker.CreateNewTopicID(mainForm.initUserComboBox.Text, mainForm.targetUserComboBox.Text).ToString();
+                //TOPIC_NAME = brSQLCommunicationMocker.CreateNewTopicID(mainForm.initUserComboBox.Text, mainForm.targetUserComboBox.Text).ToString(); //TODO: replace real get topic id instead of mocker
+                TOPIC_NAME = sqlInfra.CreateNewTopicID(mainForm.initUserComboBox.Text, mainForm.targetUserComboBox.Text).ToString(); 
             }   
             catch (Exception e)
             {
