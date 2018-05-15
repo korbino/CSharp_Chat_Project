@@ -20,42 +20,44 @@ namespace ActiveMqMessageChat
         private delegate void SetTextCallback(string text);
 
         //mockers init:
-        //BrokerConfigMocker brConfigMocker = new BrokerConfigMocker(); // obsolete
-        //BrokerAuthenticationMocker brAuthMocker = new BrokerAuthenticationMocker(); //obsolete        
-        //BrokerSQLCommunicationMocker brSQLCommunicationMocker = new BrokerSQLCommunicationMocker(); //TODO: igor to change
+        BrokerConfigMocker brConfigMocker = new BrokerConfigMocker(); // obsolete
+        BrokerAuthenticationMocker brAuthMocker = new BrokerAuthenticationMocker(); //obsolete        
+        BrokerSQLCommunicationMocker brSQLCommunicationMocker = new BrokerSQLCommunicationMocker(); //TODO: igor to change
 
         //Real Dll
         LoginFunc loginFunc = new LoginFunc();
-        SQLInfrastructure sqlInfra = new SQLInfrastructure(ConfigChatDll.OpenXmlConnectionString());     
-        
-        
-        //main objects              
-        TopicConnectionFactory connectionFactory;            
-        TopicConnection connection;
-        SimpleTopicPublisher publisher;
-        SimpleTopicSubscriber subscriber;
+        SQLInfrastructure sqlInfra = new SQLInfrastructure(ConfigChatDll.OpenXmlConnectionString());
+
+
+        //main objects                
+        TopicConnectionFactory connectionFactory;        
+        TopicConnection connection;        
+        SimpleTopicPublisher publisher;        
+        SimpleTopicSubscriber subscriber;    
         string clientId;
         string consumerId;
         readonly StringBuilder builder = new StringBuilder();
-        string TOPIC_NAME = "TestTopicName";                
-        MainForm mainForm;
+        string topicName;                
+        MainForm mainForm; 
+
+        //   
 
         public BrokerClientManager(MainForm mainForm)
         {
             this.mainForm = mainForm;
             //init connection factory:            
             //config DLL - should be deployed under: C:\XMLconf\ConfigXMLChat.xml
-            string BROKER = "tcp://" + ConfigChatDll.ActiveMqBrokerLink() + ":" + ConfigChatDll.ActiveMqBrokerPort();//true DLL";
-            connectionFactory = new TopicConnectionFactory(new ConnectionFactory(BROKER));                        
+            string brokerDestination = "tcp://" + ConfigChatDll.ActiveMqBrokerLink() + ":" + ConfigChatDll.ActiveMqBrokerPort();//true DLL";
+            connectionFactory = new TopicConnectionFactory(new ConnectionFactory(brokerDestination));            
         }    
             
         /// <summary>
         /// Make login 
         /// </summary>             
         public void MakeLogin ()
-        {        
-            //if (brAuthMocker.IsUserAuthenticated(mainForm.initUserComboBox.Text, mainForm.passwordTextBox.Text)) //obsolete
-            if (loginFunc.IsUserCorrect(mainForm.initUserComboBox.Text, mainForm.passwordTextBox.Text))
+        {    
+            if (brAuthMocker.IsUserAuthenticated(mainForm.initUserComboBox.Text, mainForm.passwordTextBox.Text)) //mock
+           // if (loginFunc.IsUserCorrect(mainForm.initUserComboBox.Text, mainForm.passwordTextBox.Text)) // REAL
                 {                              
                 //Get client ID
                 clientId = mainForm.initUserComboBox.Text;
@@ -92,11 +94,14 @@ namespace ActiveMqMessageChat
                 throw new Exception("Failed to start conversation because of: " + e.Message);
             }
             
+            //TODO: implement subscribe of second user according to topicName
             //init self pub-subscriber section:
-            connection = connectionFactory.CreateConnection(clientId, TOPIC_NAME);
+            connection = connectionFactory.CreateConnection(clientId, topicName);
             publisher = connection.CreateTopicPublisher();
             subscriber = connection.CreateSimpleTopicSubscriber(consumerId);
-            subscriber.OnMessageReceived += new MessageRecieverDelegate(subscriber_OnMessageReceived);
+            subscriber.OnMessageReceived += new MessageRecieverDelegate(subscriber_OnMessageReceived);            
+            //TODO: test            
+            SubscribeUserToTopic(mainForm.targetUserComboBox.Text, topicName);
 
             //manage UI
             mainForm.targetUserComboBox.Enabled = false;
@@ -120,21 +125,38 @@ namespace ActiveMqMessageChat
             //extract users list from DB: 
             BindingSource bindSourceForTargetUser = new BindingSource();   //this is for combobox user list from db   
             BindingSource binSourceForInitUser = new BindingSource();  // same for init user list            
-            //bindSourceForTargetUser.DataSource = brSQLCommunicationMocker.GetUserListFromDB(); //mockers
-            //binSourceForInitUser.DataSource = brSQLCommunicationMocker.GetUserListFromDB(); //mockers        
-            bindSourceForTargetUser.DataSource = sqlInfra.GetUserListFromDB();
-            binSourceForInitUser.DataSource = sqlInfra.GetUserListFromDB();
+            bindSourceForTargetUser.DataSource = brSQLCommunicationMocker.GetUserListFromDB(); //mock
+            binSourceForInitUser.DataSource = brSQLCommunicationMocker.GetUserListFromDB(); //mock        
+            //bindSourceForTargetUser.DataSource = sqlInfra.GetUserListFromDB(); // REAL
+            //binSourceForInitUser.DataSource = sqlInfra.GetUserListFromDB(); // REAL
             mainForm.initUserComboBox.DataSource = binSourceForInitUser;
             mainForm.targetUserComboBox.DataSource = bindSourceForTargetUser;
         }
 
         #region PRIVATE METHODS:
+        private void SubscribeUserToTopic (string userName, string topicName)
+        {            
+            TopicConnection tmpConnection;
+            SimpleTopicSubscriber tmpSubscriber;
+            SimpleTopicPublisher tmpPublisher;            
+        
+            tmpConnection = connectionFactory.CreateConnection(userName, topicName);
+            tmpPublisher = tmpConnection.CreateTopicPublisher();
+            tmpSubscriber = tmpConnection.CreateSimpleTopicSubscriber(userName);
+
+            //dispose connection                        
+            tmpConnection.Dispose();
+            tmpPublisher.Dispose();
+            tmpSubscriber.Dispose();
+            //---------------------
+        }
+
         private void InitTopicName ()
         {
             try
             {
-                //TOPIC_NAME = brSQLCommunicationMocker.CreateNewTopicID(mainForm.initUserComboBox.Text, mainForm.targetUserComboBox.Text).ToString(); //TODO: replace real get topic id instead of mocker
-                TOPIC_NAME = sqlInfra.CreateNewTopicID(mainForm.initUserComboBox.Text, mainForm.targetUserComboBox.Text).ToString(); 
+                topicName = brSQLCommunicationMocker.CreateNewTopicID(mainForm.initUserComboBox.Text, mainForm.targetUserComboBox.Text).ToString(); //mock, TODO: replace real get topic id instead of mocker
+                //TOPIC_NAME = sqlInfra.CreateNewTopicID(mainForm.initUserComboBox.Text, mainForm.targetUserComboBox.Text).ToString(); //REAL
             }   
             catch (Exception e)
             {
@@ -173,7 +195,8 @@ namespace ActiveMqMessageChat
         {
             publisher.Dispose();
             subscriber.Dispose();
-            connection.Dispose();
+            connection.Dispose();                        
+            
         }         
     }
 }
