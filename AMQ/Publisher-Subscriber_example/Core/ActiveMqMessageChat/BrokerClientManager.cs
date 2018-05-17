@@ -37,8 +37,9 @@ namespace ActiveMqMessageChat
         string clientId;
         string consumerId;
         readonly StringBuilder builder = new StringBuilder();
-        string topicName;                
-        MainForm mainForm; 
+        string topicID;                
+        MainForm mainForm;
+        bool isUsersAlreadyInChat = false;
 
         //   
 
@@ -96,12 +97,17 @@ namespace ActiveMqMessageChat
             
             //TODO: implement subscribe of second user according to topicName
             //init self pub-subscriber section:
-            connection = connectionFactory.CreateConnection(clientId, topicName);
+            connection = connectionFactory.CreateConnection(clientId, topicID);
             publisher = connection.CreateTopicPublisher();
             subscriber = connection.CreateSimpleTopicSubscriber(consumerId);
-            subscriber.OnMessageReceived += new MessageRecieverDelegate(subscriber_OnMessageReceived);            
-            //TODO: test            
-            SubscribeUserToTopic(mainForm.targetUserComboBox.Text, topicName);
+            subscriber.OnMessageReceived += new MessageRecieverDelegate(subscriber_OnMessageReceived);                        
+                     
+            //checking  in case of bot users are not in same chat - then user2 (target user) will be sbscribbed to defined topic
+            //in case of users are in same chat - do nothing with second user.
+            if (!isUsersAlreadyInChat)
+            {
+                SubscribeUserToTopic(mainForm.targetUserComboBox.Text, topicID);
+            }           
 
             //manage UI
             mainForm.targetUserComboBox.Enabled = false;
@@ -155,7 +161,8 @@ namespace ActiveMqMessageChat
         {
             try
             {
-                topicName = brSQLCommunicationMocker.CreateNewTopicID(mainForm.initUserComboBox.Text, mainForm.targetUserComboBox.Text).ToString(); //mock, TODO: replace real get topic id instead of mocker
+                isUsersAlreadyInChat = brSQLCommunicationMocker.IsUsersInSameChat(mainForm.initUserComboBox.Text, mainForm.targetUserComboBox.Text); //mock
+                topicID = brSQLCommunicationMocker.GetTopicID(mainForm.initUserComboBox.Text, mainForm.targetUserComboBox.Text).ToString(); //mock, TODO: replace real get topic id instead of mocker
                 //TOPIC_NAME = sqlInfra.CreateNewTopicID(mainForm.initUserComboBox.Text, mainForm.targetUserComboBox.Text).ToString(); //REAL
             }   
             catch (Exception e)

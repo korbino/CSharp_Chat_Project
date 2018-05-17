@@ -20,7 +20,24 @@ namespace BackEndMocker
         /// <param name="userOne">init user</param>
         /// <param name="userTwo">secondary user</param>
         /// <returns>return ID from SQL</returns>
-        int CreateNewTopicID(string userOne, string userTwo);      //TODO: need to change name of method to "GetTopicID". AIs: Yura, Igor.  
-      
+        int GetTopicID(string userOne, string userTwo);      //Updated name of method
+
+        /// <summary>
+        /// Rreturn true in case of user existing in defined topic ID, false - in vice versa.
+        /// </summary>
+        /// <param name="userName">user identifier</param>
+        /// <param name="topicId">id of topic</param>
+        /// <returns></returns>
+        bool IsUserExistingInChat(string userName, int topicId);
+    
+
+        /// <summary>        
+        /// Return true in case of both users existing under same topic ID. All users should be active there.
+        /// </summary>
+        /// <param name="userOne"></param>
+        /// <param name="userTwo"></param>
+        /// <returns></returns>
+        bool IsUsersInSameChat(string userOne, string userTwo);
+
     }
 }
