@@ -57,8 +57,8 @@ namespace ActiveMqMessageChat
         /// </summary>             
         public void MakeLogin ()
         {    
-            if (brAuthMocker.IsUserAuthenticated(mainForm.initUserComboBox.Text, mainForm.passwordTextBox.Text)) //mock
-           // if (loginFunc.IsUserCorrect(mainForm.initUserComboBox.Text, mainForm.passwordTextBox.Text)) // REAL
+            //if (brAuthMocker.IsUserAuthenticated(mainForm.initUserComboBox.Text, mainForm.passwordTextBox.Text)) //mock
+           if (loginFunc.IsUserCorrect(mainForm.initUserComboBox.Text, mainForm.passwordTextBox.Text)) // REAL
                 {                              
                 //Get client ID
                 clientId = mainForm.initUserComboBox.Text;
@@ -131,10 +131,10 @@ namespace ActiveMqMessageChat
             //extract users list from DB: 
             BindingSource bindSourceForTargetUser = new BindingSource();   //this is for combobox user list from db   
             BindingSource binSourceForInitUser = new BindingSource();  // same for init user list            
-            bindSourceForTargetUser.DataSource = brSQLCommunicationMocker.GetUserListFromDB(); //mock
-            binSourceForInitUser.DataSource = brSQLCommunicationMocker.GetUserListFromDB(); //mock        
-            //bindSourceForTargetUser.DataSource = sqlInfra.GetUserListFromDB(); // REAL
-            //binSourceForInitUser.DataSource = sqlInfra.GetUserListFromDB(); // REAL
+           // bindSourceForTargetUser.DataSource = brSQLCommunicationMocker.GetUserListFromDB(); //mock
+           //binSourceForInitUser.DataSource = brSQLCommunicationMocker.GetUserListFromDB(); //mock        
+            bindSourceForTargetUser.DataSource = sqlInfra.GetUserListFromDB(); // REAL
+            binSourceForInitUser.DataSource = sqlInfra.GetUserListFromDB(); // REAL
             mainForm.initUserComboBox.DataSource = binSourceForInitUser;
             mainForm.targetUserComboBox.DataSource = bindSourceForTargetUser;
         }
@@ -161,9 +161,10 @@ namespace ActiveMqMessageChat
         {
             try
             {
-                isUsersAlreadyInChat = brSQLCommunicationMocker.IsUsersInSameChat(mainForm.initUserComboBox.Text, mainForm.targetUserComboBox.Text); //mock
-                topicID = brSQLCommunicationMocker.GetTopicID(mainForm.initUserComboBox.Text, mainForm.targetUserComboBox.Text).ToString(); //mock, TODO: replace real get topic id instead of mocker
-                //TOPIC_NAME = sqlInfra.CreateNewTopicID(mainForm.initUserComboBox.Text, mainForm.targetUserComboBox.Text).ToString(); //REAL
+                //isUsersAlreadyInChat = brSQLCommunicationMocker.IsUsersInSameChat(mainForm.initUserComboBox.Text, mainForm.targetUserComboBox.Text); //mock
+                //topicID = brSQLCommunicationMocker.GetTopicID(mainForm.initUserComboBox.Text, mainForm.targetUserComboBox.Text).ToString(); //mock, TODO: replace real get topic id instead of mocker
+                isUsersAlreadyInChat = sqlInfra.IsUsersInSameChat(mainForm.initUserComboBox.Text, mainForm.targetUserComboBox.Text); //REAL TODO: igor to debug start here - step 1
+                topicID = sqlInfra.GetTopicID(mainForm.initUserComboBox.Text, mainForm.targetUserComboBox.Text).ToString(); //REAL           TODO: igor to debug start here - step 2    
             }   
             catch (Exception e)
             {
