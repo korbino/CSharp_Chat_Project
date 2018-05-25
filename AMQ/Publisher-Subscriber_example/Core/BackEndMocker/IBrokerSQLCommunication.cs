@@ -39,5 +39,18 @@ namespace BackEndMocker
         /// <returns></returns>
         bool IsUsersInSameChat(string userOne, string userTwo);
 
+        /// <summary>
+        /// Remove users from topic ID 
+        /// </summary>
+        /// <param name="topicId"></param>
+        /// <returns></returns>
+        //bool CompleteConversationByTopicID (int topicId);
+
+        /// <summary>
+        /// Return list of topic ID, where defined user exisgin and alive.
+        /// </summary>
+        /// <param name="userName"></param>
+        /// <returns></returns>
+       // List<int> GetAllTopicIDsByUserName(string userName);
     }
 }

@@ -28,6 +28,8 @@ namespace ActiveMqMessageChat
             this.submitButton.Enabled = false;
             this.targetUserComboBox.Enabled = false;
             this.startDialogButton.Enabled = false;
+            Logger.InitLogger();
+            Logger.Log.Info("Main form is started");
         }             
 
         private void connectButton_Click_1(object sender, EventArgs e)

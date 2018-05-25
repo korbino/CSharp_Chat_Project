@@ -22,7 +22,7 @@ namespace ActiveMqMessageChat
         //mockers init:
         BrokerConfigMocker brConfigMocker = new BrokerConfigMocker(); // obsolete
         BrokerAuthenticationMocker brAuthMocker = new BrokerAuthenticationMocker(); //obsolete        
-        BrokerSQLCommunicationMocker brSQLCommunicationMocker = new BrokerSQLCommunicationMocker(); //TODO: igor to change
+        BrokerSQLCommunicationMocker brSQLCommunicationMocker = new BrokerSQLCommunicationMocker(); 
 
         //Real Dll
         LoginFunc loginFunc = new LoginFunc();
@@ -94,18 +94,19 @@ namespace ActiveMqMessageChat
             {
                 throw new Exception("Failed to start conversation because of: " + e.Message);
             }
-            
-            //TODO: implement subscribe of second user according to topicName
+                        
             //init self pub-subscriber section:
             connection = connectionFactory.CreateConnection(clientId, topicID);
             publisher = connection.CreateTopicPublisher();
             subscriber = connection.CreateSimpleTopicSubscriber(consumerId);
-            subscriber.OnMessageReceived += new MessageRecieverDelegate(subscriber_OnMessageReceived);                        
-                     
-            //checking  in case of bot users are not in same chat - then user2 (target user) will be sbscribbed to defined topic
+            subscriber.OnMessageReceived += new MessageRecieverDelegate(subscriber_OnMessageReceived);
+
+            //checking  in case of both users are not in same chat - then user2 (target user) will be sbscribbed to defined topic
             //in case of users are in same chat - do nothing with second user.
+            Logger.Log.Debug("[BrokerClientManager.StartDialog] - checking  in case of both users are not in same chat. For users: " + mainForm.initUserComboBox.Text +", " + mainForm.targetUserComboBox.Text);
             if (!isUsersAlreadyInChat)
             {
+                Logger.Log.Debug("[BrokerClientManager.StartDialog] - users are not existing in same chat");
                 SubscribeUserToTopic(mainForm.targetUserComboBox.Text, topicID);
             }           
 
@@ -128,15 +129,22 @@ namespace ActiveMqMessageChat
         /// </summary>
         public void InitUsersComboboxes ()
         {
-            //extract users list from DB: 
-            BindingSource bindSourceForTargetUser = new BindingSource();   //this is for combobox user list from db   
-            BindingSource binSourceForInitUser = new BindingSource();  // same for init user list            
-           // bindSourceForTargetUser.DataSource = brSQLCommunicationMocker.GetUserListFromDB(); //mock
-           //binSourceForInitUser.DataSource = brSQLCommunicationMocker.GetUserListFromDB(); //mock        
-            bindSourceForTargetUser.DataSource = sqlInfra.GetUserListFromDB(); // REAL
-            binSourceForInitUser.DataSource = sqlInfra.GetUserListFromDB(); // REAL
-            mainForm.initUserComboBox.DataSource = binSourceForInitUser;
-            mainForm.targetUserComboBox.DataSource = bindSourceForTargetUser;
+            try
+            {
+                //extract users list from DB: 
+                BindingSource bindSourceForTargetUser = new BindingSource();   //this is for combobox user list from db   
+                BindingSource binSourceForInitUser = new BindingSource();  // same for init user list            
+                //bindSourceForTargetUser.DataSource = brSQLCommunicationMocker.GetUserListFromDB(); //mock
+                //binSourceForInitUser.DataSource = brSQLCommunicationMocker.GetUserListFromDB(); //mock        
+                bindSourceForTargetUser.DataSource = sqlInfra.GetUserListFromDB(); // REAL
+                binSourceForInitUser.DataSource = sqlInfra.GetUserListFromDB(); // REAL
+                mainForm.initUserComboBox.DataSource = binSourceForInitUser;
+                mainForm.targetUserComboBox.DataSource = bindSourceForTargetUser;
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message, "Error Happened!");
+            }
         }
 
         #region PRIVATE METHODS:
@@ -163,8 +171,8 @@ namespace ActiveMqMessageChat
             {
                 //isUsersAlreadyInChat = brSQLCommunicationMocker.IsUsersInSameChat(mainForm.initUserComboBox.Text, mainForm.targetUserComboBox.Text); //mock
                 //topicID = brSQLCommunicationMocker.GetTopicID(mainForm.initUserComboBox.Text, mainForm.targetUserComboBox.Text).ToString(); //mock, TODO: replace real get topic id instead of mocker
-                isUsersAlreadyInChat = sqlInfra.IsUsersInSameChat(mainForm.initUserComboBox.Text, mainForm.targetUserComboBox.Text); //REAL TODO: igor to debug start here - step 1
-                topicID = sqlInfra.GetTopicID(mainForm.initUserComboBox.Text, mainForm.targetUserComboBox.Text).ToString(); //REAL           TODO: igor to debug start here - step 2    
+               isUsersAlreadyInChat = sqlInfra.IsUsersInSameChat(mainForm.initUserComboBox.Text, mainForm.targetUserComboBox.Text); //REAL 
+               topicID = sqlInfra.GetTopicID(mainForm.initUserComboBox.Text, mainForm.targetUserComboBox.Text).ToString(); //REAL          
             }   
             catch (Exception e)
             {
