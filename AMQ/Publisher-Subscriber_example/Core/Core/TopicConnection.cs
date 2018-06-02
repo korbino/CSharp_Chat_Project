@@ -43,7 +43,7 @@ namespace Core
 
         public SimpleTopicSubscriber CreateSimpleTopicSubscriber(string consumerId)
         {
-            IMessageConsumer consumer = this.session.CreateDurableConsumer(this.topic, consumerId, "2 > 1", false);
+            IMessageConsumer consumer = this.session.CreateDurableConsumer(this.topic, consumerId, "20 > 10", false);
             return new SimpleTopicSubscriber(consumer);
         }
 

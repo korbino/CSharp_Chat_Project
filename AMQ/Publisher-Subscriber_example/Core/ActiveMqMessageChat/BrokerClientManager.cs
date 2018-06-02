@@ -40,6 +40,9 @@ namespace ActiveMqMessageChat
         string topicID;                
         MainForm mainForm;
         bool isUsersAlreadyInChat = false;
+        //tmp
+        bool isThereIsNewMessages = false;
+        readonly StringBuilder builderTest = new StringBuilder();
 
         //   
 
@@ -59,10 +62,13 @@ namespace ActiveMqMessageChat
         {    
             //if (brAuthMocker.IsUserAuthenticated(mainForm.initUserComboBox.Text, mainForm.passwordTextBox.Text)) //mock
            if (loginFunc.IsUserCorrect(mainForm.initUserComboBox.Text, mainForm.passwordTextBox.Text)) // REAL
-                {                              
+                {
                 //Get client ID
+                //clientId = string.Format(mainForm.initUserComboBox.Text + DateTime.Now);
                 clientId = mainForm.initUserComboBox.Text;
-                consumerId = clientId;
+                consumerId = mainForm.initUserComboBox.Text;
+
+                ShowNewMessage(clientId);
 
                 //manage UI
                 mainForm.targetUserComboBox.Enabled = true;
@@ -71,13 +77,12 @@ namespace ActiveMqMessageChat
                 mainForm.initUserComboBox.Enabled = false;
                 mainForm.loginButton.Enabled = false;
                 mainForm.instructionLabel.Enabled = true;                
-                mainForm.passwordTextBox.Enabled = false;
-            }  
+                mainForm.passwordTextBox.Enabled = false;              
+            }
             else
             {
                 throw new Exception("User is not Authenticate!");
-            }
-            
+            }            
         }
 
 
@@ -101,14 +106,16 @@ namespace ActiveMqMessageChat
             subscriber = connection.CreateSimpleTopicSubscriber(consumerId);
             subscriber.OnMessageReceived += new MessageRecieverDelegate(subscriber_OnMessageReceived);
 
-            //checking  in case of both users are not in same chat - then user2 (target user) will be sbscribbed to defined topic
+            //checking  in case of both users are not in same chat -then user2(target user) will be sbscribbed to defined topic
             //in case of users are in same chat - do nothing with second user.
-            Logger.Log.Debug("[BrokerClientManager.StartDialog] - checking  in case of both users are not in same chat. For users: " + mainForm.initUserComboBox.Text +", " + mainForm.targetUserComboBox.Text);
+            Logger.Log.Debug(string.Format("{0} - checking  in case of both users are not in same chat. For users: {1}, {2}", this.ToString(), mainForm.initUserComboBox.Text, mainForm.targetUserComboBox.Text));
             if (!isUsersAlreadyInChat)
             {
-                Logger.Log.Debug("[BrokerClientManager.StartDialog] - users are not existing in same chat");
+                Logger.Log.Debug(string.Format("{0} - users are not existing in same chat", this.ToString()));
                 SubscribeUserToTopic(mainForm.targetUserComboBox.Text, topicID);
-            }           
+            }
+            else
+                Logger.Log.Debug(string.Format("{0} - users are already existing in topicID: {1}", this.ToString(), topicID));
 
             //manage UI
             mainForm.targetUserComboBox.Enabled = false;
@@ -116,6 +123,7 @@ namespace ActiveMqMessageChat
             mainForm.messageTextBox.Enabled = true;
             mainForm.submitButton.Enabled = true;
             mainForm.historyTextBox.Enabled = true;
+            mainForm.Text = "TheTopicID: " + topicID;
         }
 
         public void SendMessage ()
@@ -148,12 +156,53 @@ namespace ActiveMqMessageChat
         }
 
         #region PRIVATE METHODS:
-        private void SubscribeUserToTopic (string userName, string topicName)
-        {            
+        //TODO: need to show popup window in case of new message for defined topics
+        private void ShowNewMessage(string userName)
+        {
+            Logger.Log.Info(this.ToString() + " - Extract from DB all topics, where user: [" + userName + "] is active.");
+            List<int> listOfTopicsByUserName = brSQLCommunicationMocker.GetAllTopicIDsByUserName(userName);
+            Logger.Log.Debug(this.ToString() + " - The list of topicIDs are:");
+            foreach (int i in listOfTopicsByUserName)
+            {
+                Logger.Log.Debug(i);
+            }
+
+            //going thrue the list of topics -> make connection -> in case of topic includes not read message - show it.
+            foreach (int topicName in listOfTopicsByUserName)
+            {
+                Logger.Log.Debug(string.Format("{0} - going thrue the list of topics. Try topicName: {1}", this.ToString(), topicName));
+                TopicConnection tmpConnection;
+                SimpleTopicSubscriber tmpSubscriber;
+                SimpleTopicPublisher tmpPublisher;
+
+                tmpConnection = connectionFactory.CreateConnection(userName, topicName.ToString());
+                tmpPublisher = tmpConnection.CreateTopicPublisher();
+                tmpSubscriber = tmpConnection.CreateSimpleTopicSubscriber(userName);
+                tmpSubscriber.OnMessageReceived += new MessageRecieverDelegate(subscriber_OnMessageReceived_TEST);
+
+                if (isThereIsNewMessages)
+                {
+                    MessageBox.Show(builderTest.ToString());
+                }
+                else
+                {
+                    Logger.Log.Debug(string.Format("{0} - There is no new message in queue.", this.ToString()));
+                }
+
+                //dispose connection                        
+                tmpConnection.Dispose();
+                tmpPublisher.Dispose();
+                tmpSubscriber.Dispose();
+                //---------------------
+            }
+        }
+
+        private void SubscribeUserToTopic(string userName, string topicName)
+        {
             TopicConnection tmpConnection;
             SimpleTopicSubscriber tmpSubscriber;
-            SimpleTopicPublisher tmpPublisher;            
-        
+            SimpleTopicPublisher tmpPublisher;
+
             tmpConnection = connectionFactory.CreateConnection(userName, topicName);
             tmpPublisher = tmpConnection.CreateTopicPublisher();
             tmpSubscriber = tmpConnection.CreateSimpleTopicSubscriber(userName);
@@ -181,8 +230,18 @@ namespace ActiveMqMessageChat
             
         }
 
-        private void subscriber_OnMessageReceived(string message)
+        private void subscriber_OnMessageReceived_TEST(string message)
         {
+            Logger.Log.Debug(this.ToString() + " - Messegae in queue is: \n" + message);
+            if (message != null)
+                isThereIsNewMessages = true;
+            else
+                isThereIsNewMessages = false;
+            builderTest.AppendLine(message);
+        }
+
+        private void subscriber_OnMessageReceived(string message)
+        {            
             builder.AppendLine(message);
             SetText(builder.ToString());
         }

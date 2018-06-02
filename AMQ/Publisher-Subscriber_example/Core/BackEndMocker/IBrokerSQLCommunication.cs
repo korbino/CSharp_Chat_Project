@@ -51,6 +51,6 @@ namespace BackEndMocker
         /// </summary>
         /// <param name="userName"></param>
         /// <returns></returns>
-       // List<int> GetAllTopicIDsByUserName(string userName);
+        List<int> GetAllTopicIDsByUserName(string userName);
     }
 }
