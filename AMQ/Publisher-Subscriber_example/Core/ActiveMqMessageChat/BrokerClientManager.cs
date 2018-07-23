@@ -65,10 +65,11 @@ namespace ActiveMqMessageChat
                 {
                 //Get client ID
                 //clientId = string.Format(mainForm.initUserComboBox.Text + DateTime.Now);
-                clientId = mainForm.initUserComboBox.Text;
-                consumerId = mainForm.initUserComboBox.Text;
+                //clientId = mainForm.initUserComboBox.Text;
+                //consumerId = mainForm.initUserComboBox.Text;
 
-                ShowNewMessage(clientId);
+                //check for new messages right after login:
+                //ShowNewMessage(clientId);
 
                 //manage UI
                 mainForm.targetUserComboBox.Enabled = true;
@@ -99,7 +100,11 @@ namespace ActiveMqMessageChat
             {
                 throw new Exception("Failed to start conversation because of: " + e.Message);
             }
-                        
+
+            //Get Client ID\ConsumerID
+            clientId = string.Format(mainForm.initUserComboBox.Text + "_topic_" + topicID);
+            consumerId = string.Format(mainForm.initUserComboBox.Text + "_topic_" + topicID);
+
             //init self pub-subscriber section:
             connection = connectionFactory.CreateConnection(clientId, topicID);
             publisher = connection.CreateTopicPublisher();
@@ -112,7 +117,7 @@ namespace ActiveMqMessageChat
             if (!isUsersAlreadyInChat)
             {
                 Logger.Log.Debug(string.Format("{0} - users are not existing in same chat", this.ToString()));
-                SubscribeUserToTopic(mainForm.targetUserComboBox.Text, topicID);
+                SubscribeUserToTopic(string.Format(mainForm.targetUserComboBox.Text + "_topic_" + topicID), topicID);
             }
             else
                 Logger.Log.Debug(string.Format("{0} - users are already existing in topicID: {1}", this.ToString(), topicID));

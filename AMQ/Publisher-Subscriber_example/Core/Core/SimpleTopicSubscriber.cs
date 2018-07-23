@@ -21,7 +21,7 @@ namespace Core
         public SimpleTopicSubscriber(IMessageConsumer consumer)
         {
             this.consumer = consumer;
-            this.consumer.Listener += new MessageListener(OnMessage);
+            this.consumer.Listener += new MessageListener(OnMessage);//TODO: - ???            
         }
 
         public void OnMessage(IMessage message)
