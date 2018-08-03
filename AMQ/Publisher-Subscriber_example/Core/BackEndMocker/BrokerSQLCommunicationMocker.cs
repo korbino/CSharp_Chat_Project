@@ -8,9 +8,16 @@ namespace BackEndMocker
 {
     public class BrokerSQLCommunicationMocker : IBrokerSQLCommunication
     {
-        public List<int> GetAllTopicIDsByUserName(string userName)
+        public List<int> GetAllActiveTopicIDsByUserName(string userName)
         {
-            return new List<int> { 29};
+            if (userName == "harden")            
+                return new List<int> { 1009, 1010 };            
+            if(userName == "appntau")
+                return new List<int> { 1009};
+            if (userName == "dbntau")
+                return new List<int> { 1010 };
+            else
+                return new List<int> { };
         }
 
         public int GetTopicID(string userOne, string userTwo)

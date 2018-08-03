@@ -26,8 +26,7 @@ namespace ActiveMqMessageChat
 
         //Real Dll
         LoginFunc loginFunc = new LoginFunc();
-        SQLInfrastructure sqlInfra = new SQLInfrastructure(ConfigChatDll.OpenXmlConnectionString());
-
+        SQLInfrastructure sqlInfra = new SQLInfrastructure(ConfigChatDll.OpenXmlConnectionString());        
 
         //main objects                
         TopicConnectionFactory connectionFactory;        
@@ -41,8 +40,8 @@ namespace ActiveMqMessageChat
         MainForm mainForm;
         bool isUsersAlreadyInChat = false;
         //tmp
-        bool isThereIsNewMessages = false;
-        readonly StringBuilder builderTest = new StringBuilder();
+        //bool isThereIsNewMessages = false;
+        //readonly StringBuilder builderTest = new StringBuilder();
 
         //   
 
@@ -62,14 +61,9 @@ namespace ActiveMqMessageChat
         {    
             //if (brAuthMocker.IsUserAuthenticated(mainForm.initUserComboBox.Text, mainForm.passwordTextBox.Text)) //mock
            if (loginFunc.IsUserCorrect(mainForm.initUserComboBox.Text, mainForm.passwordTextBox.Text)) // REAL
-                {
-                //Get client ID
-                //clientId = string.Format(mainForm.initUserComboBox.Text + DateTime.Now);
-                //clientId = mainForm.initUserComboBox.Text;
-                //consumerId = mainForm.initUserComboBox.Text;
-
+                {               
                 //check for new messages right after login:
-                //ShowNewMessage(clientId);
+                ShowNewMessage(mainForm.initUserComboBox.Text);
 
                 //manage UI
                 mainForm.targetUserComboBox.Enabled = true;
@@ -165,7 +159,8 @@ namespace ActiveMqMessageChat
         private void ShowNewMessage(string userName)
         {
             Logger.Log.Info(this.ToString() + " - Extract from DB all topics, where user: [" + userName + "] is active.");
-            List<int> listOfTopicsByUserName = brSQLCommunicationMocker.GetAllTopicIDsByUserName(userName);
+            //TODO: need to check with igor below method if exists?
+            List<int> listOfTopicsByUserName = brSQLCommunicationMocker.GetAllActiveTopicIDsByUserName(userName); //1009,1010 for harden, for app - 1009, for db - 1010
             Logger.Log.Debug(this.ToString() + " - The list of topicIDs are:");
             foreach (int i in listOfTopicsByUserName)
             {
@@ -178,27 +173,18 @@ namespace ActiveMqMessageChat
                 Logger.Log.Debug(string.Format("{0} - going thrue the list of topics. Try topicName: {1}", this.ToString(), topicName));
                 TopicConnection tmpConnection;
                 SimpleTopicSubscriber tmpSubscriber;
-                SimpleTopicPublisher tmpPublisher;
 
-                tmpConnection = connectionFactory.CreateConnection(userName, topicName.ToString());
-                tmpPublisher = tmpConnection.CreateTopicPublisher();
-                tmpSubscriber = tmpConnection.CreateSimpleTopicSubscriber(userName);
-                tmpSubscriber.OnMessageReceived += new MessageRecieverDelegate(subscriber_OnMessageReceived_TEST);
+                //Get tmp ClientID\ConsumerID
+                string tmpClientId = string.Format(userName + "_topic_" + topicName);
+                string tmpConsumerId = string.Format(userName + "_topic_" + topicName);
 
-                if (isThereIsNewMessages)
-                {
-                    MessageBox.Show(builderTest.ToString());
-                }
-                else
-                {
-                    Logger.Log.Debug(string.Format("{0} - There is no new message in queue.", this.ToString()));
-                }
+                tmpConnection = connectionFactory.CreateConnection(tmpClientId, topicName.ToString());                
+                tmpSubscriber = tmpConnection.CreateSimpleTopicSubscriber(tmpConsumerId);
+                tmpSubscriber.OnMessageReceived += new MessageRecieverDelegate(subscriber_OnMessageReceived_TEST);                               
 
-                //dispose connection                        
-                tmpConnection.Dispose();
-                tmpPublisher.Dispose();
-                tmpSubscriber.Dispose();
-                //---------------------
+                //dispose connection   TODO: this is problem place, that's why it is reading only first message???                     
+                tmpConnection.Dispose();                
+                tmpSubscriber.Dispose();                
             }
         }
 
@@ -237,12 +223,10 @@ namespace ActiveMqMessageChat
 
         private void subscriber_OnMessageReceived_TEST(string message)
         {
+            //builderTest.AppendLine(message);
             Logger.Log.Debug(this.ToString() + " - Messegae in queue is: \n" + message);
-            if (message != null)
-                isThereIsNewMessages = true;
-            else
-                isThereIsNewMessages = false;
-            builderTest.AppendLine(message);
+            //MessageBox.Show(builderTest.ToString());
+            MessageBox.Show(message);
         }
 
         private void subscriber_OnMessageReceived(string message)
