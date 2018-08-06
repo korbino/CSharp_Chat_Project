@@ -20,9 +20,10 @@ namespace ActiveMqMessageChat
         private void launchButton_Click(object sender, EventArgs e)
         {
             //Application.Run(new MainForm());
-
             MainForm mainForm = new MainForm();
-            mainForm.Show();         
+            mainForm.Show();    
+            
+                 
         }
     }
 }
