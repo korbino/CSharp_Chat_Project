@@ -22,16 +22,11 @@ namespace ChatClient
         public ChatMainForm(string userName)
         {
             Logger.InitLogger();                                 
-            InitializeComponent();            
+            InitializeComponent();
+            this.Text = userName;
             Logger.Log.Debug(this.ToString() + ": was init");
-            UserName = userName;
+            UserName = userName;            
             chatMainController = new ChatMainController(this);            
-        }
-
-        private void SendMessageButton_Click(object sender, EventArgs e)
-        {
-            //chatMainController.PrintToLogAllMessagesForAllOpenChats();
-            chatMainController.SendMessage();
         }
     } 
 }

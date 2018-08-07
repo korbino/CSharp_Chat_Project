@@ -35,7 +35,7 @@
             this.StartNewDialogButton = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
             this.panel2 = new System.Windows.Forms.Panel();
-            this.ConversationTextBox = new System.Windows.Forms.TextBox();
+            this.HistoryTextBox = new System.Windows.Forms.TextBox();
             this.panel3 = new System.Windows.Forms.Panel();
             this.SendMessageButton = new System.Windows.Forms.Button();
             this.SendMessageTextBox = new System.Windows.Forms.TextBox();
@@ -108,20 +108,21 @@
             // panel2
             // 
             this.panel2.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.panel2.Controls.Add(this.ConversationTextBox);
+            this.panel2.Controls.Add(this.HistoryTextBox);
             this.panel2.Location = new System.Drawing.Point(193, 10);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(389, 414);
             this.panel2.TabIndex = 6;
             // 
-            // ConversationTextBox
+            // HistoryTextBox
             // 
-            this.ConversationTextBox.Location = new System.Drawing.Point(3, 3);
-            this.ConversationTextBox.Multiline = true;
-            this.ConversationTextBox.Name = "ConversationTextBox";
-            this.ConversationTextBox.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.ConversationTextBox.Size = new System.Drawing.Size(381, 406);
-            this.ConversationTextBox.TabIndex = 0;
+            this.HistoryTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.HistoryTextBox.Location = new System.Drawing.Point(3, 3);
+            this.HistoryTextBox.Multiline = true;
+            this.HistoryTextBox.Name = "HistoryTextBox";
+            this.HistoryTextBox.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.HistoryTextBox.Size = new System.Drawing.Size(381, 406);
+            this.HistoryTextBox.TabIndex = 0;
             // 
             // panel3
             // 
@@ -142,7 +143,6 @@
             this.SendMessageButton.TabIndex = 1;
             this.SendMessageButton.Text = "Send Message";
             this.SendMessageButton.UseVisualStyleBackColor = true;
-            this.SendMessageButton.Click += new System.EventHandler(this.SendMessageButton_Click);
             // 
             // SendMessageTextBox
             // 
@@ -183,7 +183,7 @@
         public System.Windows.Forms.Button StartNewDialogButton;
         public System.Windows.Forms.Panel panel1;
         public System.Windows.Forms.Panel panel2;
-        public System.Windows.Forms.TextBox ConversationTextBox;
+        public System.Windows.Forms.TextBox HistoryTextBox;
         public System.Windows.Forms.Panel panel3;
         public System.Windows.Forms.Button SendMessageButton;
         public System.Windows.Forms.TextBox SendMessageTextBox;

@@ -20,7 +20,8 @@ namespace ChatClient
         private SimpleTopicSubscriber subscriber;               //+
         private string clientId;                                //+
         private string consumerId;                              //+        
-        //private StringBuilder builder = new StringBuilder();   
+        private RecievedMessageArgs recievedMessageArgs = new RecievedMessageArgs();
+        //private StringBuilder sBuilder = new StringBuilder();   
         private List<string> messagesContainer = new List<string>();
         #endregion
 
@@ -34,6 +35,14 @@ namespace ChatClient
                 topicID = value;
             }
         }
+        public List<string> MessagesContainer
+        {
+            get
+            {
+                return messagesContainer;
+            }
+        }        
+        public event EventHandler<RecievedMessageArgs> RecievedNewMessage;
 
 
         //c-tor:
@@ -46,6 +55,7 @@ namespace ChatClient
             InitConnectionToBroker();
             InitSubscriber();
             InitPublisher();
+            recievedMessageArgs.TopicID = topicID;
         }
 
         //for debug purpose...
@@ -89,6 +99,8 @@ namespace ChatClient
         private void subscriber_OnMessageReceived(string message)
         {
             messagesContainer.Add(message);
+            recievedMessageArgs.Message = message;
+            OnRecievedNewMessage();
             Logger.Log.Debug(this.ToString() + ": recieved new message: [" + topicID + "]:[" + userName  +"]: " + message);
         }
 
@@ -98,6 +110,12 @@ namespace ChatClient
             Logger.Log.Debug(this.ToString() + ": Was inited publisher");
         }
 
+        protected virtual void OnRecievedNewMessage()
+        {
+            Logger.Log.Debug(this.ToString() + ": OnRecievedNewMessage event triggered, with new message: " + recievedMessageArgs.Message);
+            if (RecievedNewMessage != null)
+                RecievedNewMessage(this,recievedMessageArgs);
+        }
        
         #endregion
 
