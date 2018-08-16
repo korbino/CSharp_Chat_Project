@@ -52,5 +52,12 @@ namespace BackEndMocker
         /// <param name="userName"></param>
         /// <returns></returns>
         List<int> GetAllActiveTopicIDsByUserName(string userName);
+
+        /// <summary>
+        /// Return all users related to topic id
+        /// </summary>
+        /// <param name="topicID"></param>
+        /// <returns></returns>
+        List<string> GetAllUsersByTopicID(int topicID);
     }
 }

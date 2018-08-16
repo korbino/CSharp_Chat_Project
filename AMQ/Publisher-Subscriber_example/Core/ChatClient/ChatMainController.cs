@@ -22,7 +22,7 @@ namespace ChatClient
     [+] Implement publish\send message for selectedActiveTopic
     [+] Display list of OpenedChats on relevant pannel
     [-] Highlite OpenedChats - with missed messages
-    [-] After clicking on each OpenedChat element - on right pannel should be displaying conversation history
+    [+] After clicking on each OpenedChat element - on right pannel should be displaying conversation history
     [-] Implement StartNew dialog
     [-] In UI should be easy to understand - which dialog curently is Active.
   
