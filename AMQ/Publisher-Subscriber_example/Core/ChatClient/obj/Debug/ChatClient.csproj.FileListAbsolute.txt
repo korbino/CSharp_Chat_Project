@@ -21,3 +21,4 @@ C:\Users\yurijs\Dropbox\Learning\C_sharp\CSharp_Chat_Project\AMQ\Publisher-Subsc
 C:\Users\yurijs\Dropbox\Learning\C_sharp\CSharp_Chat_Project\AMQ\Publisher-Subscriber_example\Core\ChatClient\bin\Debug\log4net.xml
 C:\Users\yurijs\Dropbox\Learning\C_sharp\CSharp_Chat_Project\AMQ\Publisher-Subscriber_example\Core\ChatClient\obj\Debug\ChatClient.LoginForm.resources
 C:\Users\yurijs\Dropbox\Learning\C_sharp\CSharp_Chat_Project\AMQ\Publisher-Subscriber_example\Core\ChatClient\obj\Debug\ChatClient.ChatMainForm.resources
+C:\Users\yurijs\Dropbox\Learning\C_sharp\CSharp_Chat_Project\AMQ\Publisher-Subscriber_example\Core\ChatClient\obj\Debug\ChatClient.RegisterNewUser.resources

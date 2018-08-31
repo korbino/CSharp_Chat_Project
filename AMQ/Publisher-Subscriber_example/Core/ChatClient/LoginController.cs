@@ -18,12 +18,14 @@ namespace ChatClient
         private SQLInfrastructure sqlInfra = new SQLInfrastructure(ConfigChatDll.OpenXmlConnectionString());          
         private LoginForm loginForm;
         private ChatMainForm chatMainForm;
+        private RegisterNewUser regNewUserForm;
         #endregion
 
         //ctor
         public LoginController(LoginForm loginForm)
         {
             this.loginForm = loginForm;
+            SubscribeForUIActions();
         }
         
         /// <summary>
@@ -39,12 +41,26 @@ namespace ChatClient
             {                
                 chatMainForm = new ChatMainForm(userName);
                 loginForm.Close();
-                chatMainForm.Show();
+                chatMainForm.Show();                
             }
             else
             {
                 throw new Exception("User is not Authenticate!");
             }
-        }        
+        }   
+        
+        /// <summary>
+        /// Subscribing for UI events methods.
+        /// </summary>
+        private void SubscribeForUIActions()
+        {
+            loginForm.RegisterNewUserButton.Click += RegisterNewUserButton_Click;
+        }
+
+        private void RegisterNewUserButton_Click(object sender, EventArgs e)
+        {
+            regNewUserForm = new RegisterNewUser();
+            regNewUserForm.Show();
+        }
     }
 }

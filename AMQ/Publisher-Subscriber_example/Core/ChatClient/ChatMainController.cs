@@ -10,6 +10,8 @@ using Apache.NMS.ActiveMQ;
 using InfrastructureChat;
 using BackEndMocker;
 using System.Windows.Forms;
+using SQLinfra;
+using System.ComponentModel;
 
 namespace ChatClient
 {
@@ -20,11 +22,16 @@ namespace ChatClient
     [+] Create List <OpenedChat> and generate subsribe\publish mechanism for all of them    
     [+] Once subscribed to topic - pull all missed messages
     [+] Implement publish\send message for selectedActiveTopic
-    [+] Display list of OpenedChats on relevant pannel
-    [-] Highlite OpenedChats - with missed messages
+    [+] Display list of OpenedChats on relevant pannel    
     [+] After clicking on each OpenedChat element - on right pannel should be displaying conversation history
-    [-] Implement StartNew dialog
+    [+] Implement user list for existing users
+    [+] Implement StartNew dialog
+    [+] Fix bug with in case no opened chat - can't start..."null reference exception"
+    [+] Implement Create new user
+    [-] Implement public Dispose method for all connection for current user (in case of exist...)
     [-] In UI should be easy to understand - which dialog curently is Active.
+    [-] Highlite OpenedChats - with missed messages
+    
   
     */
 
@@ -37,12 +44,13 @@ namespace ChatClient
         private List<int> listOfActiveTopiIDs = new List<int>();
         private List<OpenedChat> listOfOpenedChats = new List<OpenedChat>();
         private string selectedActiveTopicID;
-        private BindingSource bindingSourceForListOfActiveTopic = new BindingSource();
+        private BindingSource bindingSourceForListOfActiveTopic = new BindingSource();        
         private bool isItFirstRun = true;//TODO: remove in future 
         private StringBuilder sBuilder = new StringBuilder();
         private List<string> listOfHistoryMessage = new List<string>(0);
         private delegate void SetTextCallback(string text);
         private delegate void SetTextListCallback(List<string> text);
+        private SQLInfrastructure sqlInfra = new SQLInfrastructure(ConfigChatDll.OpenXmlConnectionString());
         //mockers:
         BrokerSQLCommunicationMocker mockBrockerSQLCommunication = new BrokerSQLCommunicationMocker();
         #endregion
@@ -52,11 +60,13 @@ namespace ChatClient
         {            
             this.chatMainForm = chatMainForm;                                    
             MakeConnectionToBroker();
-            InitListOfActiveTopiIDs();
+            InitListOfActiveTopicIDs();
             CreateOpenedChatList();
             InitUIListOfOpenedChats();
             SubscribeForUIActions();
             InitSubscriptionsForNewMessageEvents();
+            InitSelectUserComboBox();
+            Logger.Log.Debug(this.ToString() + ": mockBrockerSQLCommunication is not using!");
 
         }
        
@@ -77,15 +87,104 @@ namespace ChatClient
         {            
             foreach (var v in listOfOpenedChats)
             {
+
                 if (v.TopicID == selectedActiveTopicID)
                     {
                         v.SendMessage(chatMainForm.SendMessageTextBox.Text + "\n");
                         chatMainForm.SendMessageTextBox.Text = "";
-                    }                    
+                    }
+                else
+                {
+                    Logger.Log.Debug(this.ToString() + ": listOfOpenedChats.TopicID is not equal to selectedActiveTopicID");
+                    Logger.Log.Debug(this.ToString() + ": listOfOpenedChats.TopicID is: " + v.TopicID + ":selectedActiveTopicID is: " + selectedActiveTopicID);
+                }               
             }
         }
 
-        #region Private Methods:        
+        #region Private Methods:     
+        
+        /// <summary>
+        /// According to selected second user - will be created new chat with new topicID, 
+        /// or in case of chat already existing - show message (temporaly)  - later - autoselct relevant chat ID
+        /// </summary>
+        /// <param name="userOne"></param>
+        /// <param name="userTwo"></param>
+        private void CreateNewChat()
+        {
+            Logger.Log.Debug(this.ToString() + ": Going to create new chat....");
+            bool isUsersExistingInSameChat = sqlInfra.IsUsersInSameChat(chatMainForm.UserName, chatMainForm.SelectUserComboBox.Text);
+            if (isUsersExistingInSameChat)
+            {                
+                //TODO: instead of message box - implement auto selction of relevant topic ID
+                MessageBox.Show(string.Format("Looks, that you are already existing in chat with {0} under topicID: {1}",
+                    chatMainForm.SelectUserComboBox.Text,
+                    sqlInfra.GetTopicID(chatMainForm.UserName, chatMainForm.SelectUserComboBox.Text)
+                    ));
+            }
+            else
+            {
+                Logger.Log.Debug(this.ToString() + ": Triggering to add new opened chat item");
+                AddNewOpenChatToTheList();
+            }
+        }
+        
+        /// <summary>
+        /// Creating new topic ID, and subscribing current user with second user.
+        /// Second user will be subsribed to same topicID as well (init-dispose...)
+        /// </summary>
+        private void AddNewOpenChatToTheList()
+        {
+            int newTopicID = sqlInfra.GetTopicID(chatMainForm.UserName, chatMainForm.SelectUserComboBox.Text);
+            listOfOpenedChats.Add(new OpenedChat(chatMainForm.UserName, newTopicID.ToString(), connectionFactory));
+            Logger.Log.Debug(this.ToString() + ": Was added new OpenedChat element with new TopicID: " + newTopicID);
+                                   
+            //listOfActiveTopiIDs.Add(newTopicID);            
+            bindingSourceForListOfActiveTopic.Add(newTopicID);
+            InitSubscriptionsForNewMessageEvents();
+            Logger.Log.Debug(this.ToString() + ": Was refreshed ListOfOpenedChats in UI");
+
+            SubscribeUserToDefinedTopicID(chatMainForm.SelectUserComboBox.Text, newTopicID.ToString());
+        }        
+
+        /// <summary>
+        /// Subscribe user to defined topic ID, and dispose connection
+        /// </summary>
+        /// <param name="userName"></param>
+        /// <param name="topicID"></param>
+        private void SubscribeUserToDefinedTopicID(string userName, string topicID)
+        {
+            Logger.Log.Debug(this.ToString() + ": Going to subscribe user: " + userName + ": to topicID: " + topicID);
+            OpenedChat newOpenedChat = new OpenedChat(userName, topicID, connectionFactory);
+            newOpenedChat.Dispose();
+        }
+
+        /// <summary>
+        /// Extract users from DB and display in SelectUserComboBox
+        /// </summary>
+        private void InitSelectUserComboBox()
+        {
+            try
+            {
+                Logger.Log.Debug(this.ToString() + ": Going to extract users from DB and display in SelectUserComboBox...");
+                BindingSource existingUsersInDB = new BindingSource();   //this is for combobox user list from db 
+                List<string> notFilteredList = new List<string>();
+                List<string> filteredList = new List<string>();
+                notFilteredList = sqlInfra.GetUserListFromDB();
+                foreach (var v in notFilteredList)
+                {
+                    if (chatMainForm.UserName != v)
+                        filteredList.Add(v);
+                }
+                filteredList.Sort();
+                existingUsersInDB.DataSource = filteredList;                               
+                chatMainForm.SelectUserComboBox.DataSource = existingUsersInDB;
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message, "Error Happened!");
+            }
+        }
+
         /// <summary>
         /// Make Connection to AMQ with predefined user name
         /// </summary>
@@ -100,9 +199,10 @@ namespace ChatClient
         /// <summary>
         /// Get list of topic IDs, where current user is active and init local list
         /// </summary>
-        private void InitListOfActiveTopiIDs ()
+        private void InitListOfActiveTopicIDs ()
         {
-            listOfActiveTopiIDs = mockBrockerSQLCommunication.GetAllActiveTopicIDsByUserName(chatMainForm.UserName);
+            //listOfActiveTopiIDs = mockBrockerSQLCommunication.GetAllActiveTopicIDsByUserName(chatMainForm.UserName); //mock used            
+            listOfActiveTopiIDs = sqlInfra.GetTopicIDsByUserName(chatMainForm.UserName); 
             Logger.Log.Debug(this.ToString() + ": Reading active topicIDs for username: " + chatMainForm.UserName);
             foreach (int v in listOfActiveTopiIDs)
             {
@@ -133,14 +233,21 @@ namespace ChatClient
             chatMainForm.OpenChatListBox.DataSource = bindingSourceForListOfActiveTopic;     
             if (isItFirstRun)
             {
-                selectedActiveTopicID = chatMainForm.OpenChatListBox.SelectedValue.ToString();
+                try
+                {
+                    selectedActiveTopicID = chatMainForm.OpenChatListBox.SelectedValue.ToString();
+                }
+                catch (Exception e)
+                {                    
+                    Logger.Log.Warn(this.ToString() + ": Exception happened: " + e.Message);
+                }
                 Logger.Log.Debug(this.ToString() + ": This is first run app. selectedActiveTopicID was set to: " + selectedActiveTopicID);
                 DisplayConversationInMainWindow();               
                 isItFirstRun = false;
             }
         }
 
-        //TODO: change logic... bad logic... too bad logic...
+        //TODO: change logic... bad logic
         /// <summary>
         /// Display conversation for each topicID according to OpenedChat.
         /// </summary>
@@ -230,6 +337,13 @@ namespace ChatClient
         {
             chatMainForm.OpenChatListBox.SelectedValueChanged += OpenChatListBox_Click;
             chatMainForm.SendMessageButton.Click += SendMessageButton_Click;
+            chatMainForm.StartNewDialogButton.Click += StartNewDialogButton_Click;
+
+        }
+
+        private void StartNewDialogButton_Click(object sender, EventArgs e)
+        {
+            CreateNewChat();
         }
 
         private void SendMessageButton_Click(object sender, EventArgs e)

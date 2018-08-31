@@ -66,6 +66,7 @@
             // 
             // SelectUserComboBox
             // 
+            this.SelectUserComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.SelectUserComboBox.FormattingEnabled = true;
             this.SelectUserComboBox.Location = new System.Drawing.Point(13, 417);
             this.SelectUserComboBox.Name = "SelectUserComboBox";
@@ -116,10 +117,12 @@
             // 
             // HistoryTextBox
             // 
+            this.HistoryTextBox.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
             this.HistoryTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.HistoryTextBox.Location = new System.Drawing.Point(3, 3);
             this.HistoryTextBox.Multiline = true;
             this.HistoryTextBox.Name = "HistoryTextBox";
+            this.HistoryTextBox.ReadOnly = true;
             this.HistoryTextBox.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.HistoryTextBox.Size = new System.Drawing.Size(381, 406);
             this.HistoryTextBox.TabIndex = 0;

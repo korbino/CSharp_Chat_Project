@@ -94,6 +94,13 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RecievedMessageArgs.cs" />
+    <Compile Include="RegisterNewUser.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="RegisterNewUser.Designer.cs">
+      <DependentUpon>RegisterNewUser.cs</DependentUpon>
+    </Compile>
+    <Compile Include="RegisterNewUserController.cs" />
     <EmbeddedResource Include="ChatMainForm.resx">
       <DependentUpon>ChatMainForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -112,6 +119,9 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="RegisterNewUser.resx">
+      <DependentUpon>RegisterNewUser.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

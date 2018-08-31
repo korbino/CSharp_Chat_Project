@@ -65,11 +65,6 @@ namespace ChatClient
             {
                 MessageBox.Show(ex.Message);
             }
-        }
-
-        private void RegisterButton_Click(object sender, EventArgs e)
-        {
-            MessageBox.Show("TODO......");
-        }
+        }       
     }
 }

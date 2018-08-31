@@ -43,12 +43,23 @@ namespace ChatClient
             }
         }        
         public event EventHandler<RecievedMessageArgs> RecievedNewMessage;
+        public string UserName
+        {
+            get
+            {
+                return userName;
+            }
+            set
+            {
+                userName = value;
+            }
+        }
 
 
         //c-tor:
         public OpenedChat(string userName, string topicID, TopicConnectionFactory connectionFactory)
         {
-            this.userName = userName;
+            UserName = userName;
             this.connectionFactory = connectionFactory;
             TopicID = topicID;
             InitClientIDs(userName);
@@ -72,6 +83,14 @@ namespace ChatClient
         public void SendMessage(string message)
         {
             publisher.SendMessage(userName + " (" + DateTime.Now + ") -> " + message);
+        }
+
+        public void Dispose()
+        {
+            Logger.Log.Debug(this.ToString() + ": Going to Dispose everything for user: " + UserName + ": with topicID: " + TopicID);
+            publisher.Dispose();
+            subscriber.Dispose();
+            connection.Dispose();
         }
 
         #region Private methods

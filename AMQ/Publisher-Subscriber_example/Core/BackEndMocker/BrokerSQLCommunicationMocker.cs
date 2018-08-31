@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace BackEndMocker
 {
-    public class BrokerSQLCommunicationMocker : IBrokerSQLCommunication
+    public class BrokerSQLCommunicationMocker : IBrokerSQLCommunication 
     {
         public List<int> GetAllActiveTopicIDsByUserName(string userName)
         {
@@ -18,6 +18,11 @@ namespace BackEndMocker
                 return new List<int> { 1010 };
             else
                 return new List<int> { };
+        }
+
+        public List<string> GetAllUsersByTopicID(int topicID)
+        {
+            throw new NotImplementedException();
         }
 
         public int GetTopicID(string userOne, string userTwo)
